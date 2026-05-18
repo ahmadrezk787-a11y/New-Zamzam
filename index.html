@@ -591,7 +591,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bundle.min.js"></script>
 
     <script>
         let patients = JSON.parse(localStorage.getItem('zamzam_patients')) || [];
@@ -698,7 +698,7 @@
             }
             systemAccounts.push({username: user, password: pass});
             localStorage.setItem('zamzam_sys_accounts', JSON.stringify(systemAccounts));
-            showToast("تم إنشاء الحساب الإضافي بنجاح"، 'success');
+            showToast("تم إنشاء الحساب الإضافي بنجاح", 'success');
             switchAuthPage('login');
         }
 
@@ -869,7 +869,7 @@
                     <td class="fw-bold text-danger text-start">${p.name}</td>
                     <td>${p.phone}</td>
                     <td class="fw-bold text-danger">${remaining} ج.م</td>
-                    <td class="fw-bold text-dark">${docRemShare.toFixed(1)} ج.م</td>
+                    <td class="fw-bold text-dark">${docRemShare.toFixed(1)} ج.m</td>
                     <td class="text-center"><button class="btn btn-sm btn-success fw-bold py-1" onclick="openQuickPayModal(${p.id})"><i class="fa-solid fa-money-bill-wave"></i> تحصيل مبلغ</button></td>
                 `;
                 tbody.appendChild(tr);
@@ -888,11 +888,11 @@
 
         window.submitInstallment = function() {
             let amt = parseFloat(document.getElementById('instAmount').value) || 0;
-            if(amt <= 0) { showToast("أدخل قسط صحيح"، 'warning'); return; }
+            if(amt <= 0) { showToast("أدخل قسط صحيح", 'warning'); return; }
             let idx = patients.findIndex(p => p.id === quickPayPatientId);
             if(idx !== -1) {
                 let rem = patients[idx].totalCost - patients[idx].paidCost;
-                if(amt > rem) { showToast("المبلغ أكبر من المديونية المتبقية"، 'danger'); return; }
+                if(amt > rem) { showToast("المبلغ أكبر من المديونية المتبقية", 'danger'); return; }
 
                 patients[idx].paidCost += amt;
                 patients[idx].remainingCost = patients[idx].totalCost - patients[idx].paidCost;
