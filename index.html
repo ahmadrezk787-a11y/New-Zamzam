@@ -24,7 +24,7 @@
             font-family: 'Tajawal', sans-serif;
             background-color: var(--bg-main);
             color: #1e293b;
-            padding-bottom: 80px; /* مساحة للشريط السفلي بالموبايل */
+            padding-bottom: 80px; 
             font-size: 1.05rem;
         }
 
@@ -32,7 +32,7 @@
         .app-header {
             background-color: #ffffff;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            padding: 15px 0;
+            padding: 10px 15px;
             border-bottom: 1px solid #e2e8f0;
         }
 
@@ -210,8 +210,9 @@
 
     <div class="sidebar">
         <div class="text-center mb-4">
+            <img src="WhatsApp Image 2026-05-18 at 8.46.17 PM.jpeg" alt="عيادة زمزم" class="img-fluid rounded-circle mb-2" style="height: 65px; width: 65px; object-fit: cover; border: 2px solid var(--blue-accent);">
             <h4 class="fw-bold text-white mb-1">عيادة زمزم</h4>
-            <small class="text-muted">نظام الإدارة المتكامل 2026</small>
+            <small class="text-muted">نظام الإدارة المتكامل</small>
         </div>
         <hr class="text-secondary mb-4">
         <nav class="nav flex-column">
@@ -220,7 +221,7 @@
             <a class="nav-link" id="dNavAccounts" onclick="switchPage('accounts')"><i class="fa-solid fa-wallet"></i> الحسابات واليومية</a>
             <a class="nav-link" id="dNavDebts" onclick="switchPage('debts')"><i class="fa-solid fa-hand-holding-dollar"></i> المديونيات</a>
             <a class="nav-link" id="dNavPurchases" onclick="switchPage('purchases')"><i class="fa-solid fa-cart-shopping"></i> المصاريف</a>
-            <a class="nav-link text-danger mt-5" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> خروج</a>
+            <a class="nav-link text-danger mt-5" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> خروج الحساب</a>
         </nav>
     </div>
 
@@ -229,14 +230,17 @@
         <div class="mobile-nav-item" id="mNavRecords" onclick="switchPage('records')"><i class="fa-solid fa-address-book"></i>السجل</div>
         <div class="mobile-nav-item" id="mNavAccounts" onclick="switchPage('accounts')"><i class="fa-solid fa-wallet"></i>اليومية</div>
         <div class="mobile-nav-item" id="mNavDebts" onclick="switchPage('debts')"><i class="fa-solid fa-hand-holding-dollar"></i>الديون</div>
-        <div class="mobile-nav-item" id="mNavPurchases" onclick="switchPage('purchases')"><i class="fa-solid fa-bars"></i>المزيد</div>
+        <div class="mobile-nav-item" id="mNavPurchases" onclick="switchPage('purchases')"><i class="fa-solid fa-cart-shopping"></i>المصاريف</div>
     </div>
 
     <div class="main-content">
         
-        <div class="app-header rounded-4 mb-4 px-3 d-flex justify-content-between align-items-center" id="systemHeader" style="display:none !important;">
-            <span class="fw-bold text-dark"><i class="fa-solid fa-tooth text-primary me-2"></i> عيادة زمزم لطب الأسنان</span>
-            <span class="badge bg-light text-dark py-2 px-3 border fw-bold">دكتور العيادة</span>
+        <div class="app-header rounded-4 mb-4 d-flex justify-content-between align-items-center" id="systemHeader" style="display:none !important;">
+            <div class="d-flex align-items-center gap-2">
+                <img src="WhatsApp Image 2026-05-18 at 8.46.17 PM.jpeg" alt="لوجو عيادة زمزم" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                <span class="fw-bold text-dark fs-6">عيادة زمزم لطب الأسنان</span>
+            </div>
+            <button class="btn btn-sm btn-outline-danger border-0 fw-bold d-lg-none" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
         </div>
 
         <div id="mainSystem" class="page-section">
@@ -364,7 +368,7 @@
                     <h5 class="card-title"><i class="fa-solid fa-cart-shopping text-warning me-2"></i> إدارة المصاريف والمشتروات اليومية</h5>
                     <form id="purchaseForm" onsubmit="savePurchase(event)" class="row g-3 mb-4 p-3 bg-light rounded-4">
                         <div class="col-md-4">
-                            <input type="text" class="form-control" id="purName" placeholder="بيان المصروف (مثال: أدوات معقمة)" required>
+                            <input type="text" class="form-control" id="purName" placeholder="بيان المصروف" required>
                         </div>
                         <div class="col-md-3">
                             <input type="number" class="form-control" id="purPrice" placeholder="المبلغ ج.م" required>
@@ -397,26 +401,52 @@
 
         </div>
 
-        <div id="loginPage" class="page-section active mt-5">
+        <div id="loginPage" class="page-section active mt-4">
             <div class="row justify-content-center">
                 <div class="col-md-5 col-lg-4">
-                    <div class="card text-center p-4 shadow-lg border-0 mt-5">
-                        <div class="p-3 bg-light rounded-circle mx-auto mb-3 d-inline-block">
-                            <i class="fa-solid fa-lock text-primary fs-2"></i>
+                    <div class="card text-center p-4 border-0 mt-5">
+                        <div class="mb-3">
+                            <img src="WhatsApp Image 2026-05-18 at 8.46.17 PM.jpeg" alt="لوجو عيادة زمزم" class="rounded-circle shadow" style="width: 90px; height: 90px; object-fit: cover; border: 3px solid var(--blue-accent);">
                         </div>
-                        <h4 class="fw-bold mb-1">عيادة زمزم الرقمية</h4>
-                        <p class="text-muted small mb-4">نظام الحسابات الطبي الآمن</p>
+                        <h4 class="fw-bold mb-1">بوابة عيادة زمزم</h4>
+                        <p class="text-muted small mb-4">نظام التحكم المالي والطبي الذكي</p>
+                        
                         <form id="loginForm" onsubmit="handleLogin(event)">
                             <div class="mb-3 text-start">
                                 <label class="form-label small fw-bold">اسم المستخدم</label>
-                                <input type="text" class="form-control" id="username" placeholder="admin" required>
+                                <input type="text" class="form-control" id="username" placeholder="اكتب admin أو اسمك" required>
                             </div>
                             <div class="mb-4 text-start">
                                 <label class="form-label small fw-bold">كلمة المرور</label>
                                 <input type="password" class="form-control" id="password" placeholder="••••••••" required>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100 py-3 fw-bold rounded-3">تسجيل الدخول للمنظومة</button>
+                            <button type="submit" class="btn btn-primary w-100 py-3 fw-bold rounded-3 mb-3">تسجيل الدخول</button>
                         </form>
+                        
+                        <button class="btn btn-link btn-sm text-decoration-none fw-bold text-secondary" onclick="openAuthView('signup')">إنشاء حساب عيادة جديد <i class="fa-solid fa-user-plus ms-1"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="signupPage" class="page-section mt-4">
+            <div class="row justify-content-center">
+                <div class="col-md-5 col-lg-4">
+                    <div class="card p-4 border-0 mt-5">
+                        <h4 class="fw-bold text-center mb-1">حساب عيادة جديد</h4>
+                        <p class="text-muted small text-center mb-4">قم بتهيئة بيانات مالك النظام الأساسي</p>
+                        <form id="signupForm" onsubmit="handleSignup(event)">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">اسم المستخدم الجديد</label>
+                                <input type="text" class="form-control" id="signupUsername" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold">كلمة المرور</label>
+                                <input type="password" class="form-control" id="signupPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100 py-3 fw-bold rounded-3 mb-3">تسجيل وتفعيل الحساب</button>
+                        </form>
+                        <button class="btn btn-link btn-sm text-decoration-none fw-bold text-secondary text-center w-100" onclick="openAuthView('login')">العودة لشاشة الدخول</button>
                     </div>
                 </div>
             </div>
@@ -511,6 +541,7 @@
     <script>
         let patients = JSON.parse(localStorage.getItem('zamzam_patients')) || [];
         let purchases = JSON.parse(localStorage.getItem('zamzam_purchases')) || [];
+        let systemAccounts = JSON.parse(localStorage.getItem('zamzam_sys_accounts')) || [];
         let currentAuthUser = localStorage.getItem('zamzam_logged_user') || null;
 
         let updateModal, payModal, editPatientModal;
@@ -533,27 +564,55 @@
         function checkUserSession() {
             if (currentAuthUser) {
                 document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('signupPage').style.display = 'none';
                 document.getElementById('systemHeader').style.setProperty('display', 'flex', 'important');
-                document.getElementById('mainSystem').classList.add('active');
                 switchPage(localStorage.getItem('zamzam_active_tab') || 'home');
             } else {
-                document.getElementById('loginPage').style.display = 'block';
-                document.getElementById('systemHeader').style.setProperty('display', 'none', 'important');
-                document.getElementById('mainSystem').classList.remove('active');
+                openAuthView('login');
             }
+        }
+
+        window.openAuthView = function(view) {
+            document.getElementById('loginPage').style.display = view === 'login' ? 'block' : 'none';
+            document.getElementById('signupPage').style.display = view === 'signup' ? 'block' : 'none';
+            document.getElementById('systemHeader').style.setProperty('display', 'none', 'important');
+            document.getElementById('homeSection').style.display = 'none';
+            document.getElementById('recordsSection').style.display = 'none';
+            document.getElementById('accountsSection').style.display = 'none';
+            document.getElementById('debtsSection').style.display = 'none';
+            document.getElementById('purchasesSection').style.display = 'none';
         }
 
         function handleLogin(e) {
             e.preventDefault();
             let u = document.getElementById('username').value.trim();
             let p = document.getElementById('password').value;
-            if((u === 'admin' && p === 'admin') || u === 'دكتور') {
+            
+            // الدخول السريع بالأدمن الافتراضي أو الحسابات المسجلة
+            let matched = systemAccounts.find(a => a.username === u && a.password === p);
+            
+            if((u === 'admin' && p === 'admin') || matched) {
                 currentAuthUser = u;
                 localStorage.setItem('zamzam_logged_user', u);
                 checkUserSession();
             } else {
-                alert("بيانات الدخول خاطئة!");
+                alert("بيانات الدخول خاطئة! يمكنك كتابة admin في الخانتين للدخول الفوري.");
             }
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            let u = document.getElementById('signupUsername').value.trim();
+            let p = document.getElementById('signupPassword').value;
+            
+            if(systemAccounts.some(a => a.username === u)) {
+                alert("اسم المستخدم هذا مسجل بالفعل!"); return;
+            }
+            
+            systemAccounts.push({username: u, password: p});
+            localStorage.setItem('zamzam_sys_accounts', JSON.stringify(systemAccounts));
+            alert("تم إنشاء حساب العيادة بنجاح! يمكنك تسجيل الدخول به الآن.");
+            openAuthView('login');
         }
 
         function logout() {
@@ -563,13 +622,13 @@
         }
 
         function switchPage(page) {
+            if(!currentAuthUser) return;
             document.querySelectorAll('.sub-section').forEach(s => s.style.display = 'none');
             document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
             document.querySelectorAll('.mobile-nav-item').forEach(m => m.classList.remove('active'));
             
             localStorage.setItem('zamzam_active_tab', page);
 
-            // تفعيل التبويب للشاشات الكبيرة والصغيرة
             let dLink = document.getElementById('dNav' + page.charAt(0).toUpperCase() + page.slice(1));
             if(dLink) dLink.classList.add('active');
             let mLink = document.getElementById('mNav' + page.charAt(0).toUpperCase() + page.slice(1));
@@ -600,15 +659,13 @@
             switchPage('records');
         }
 
-        /* جرد وعرض السجلات بشكل ثنائي (جدول للكمبيوتر - كروت للموبايل) مع منع المشاكل */
         window.renderPatientsTable = function() {
             let tbody = document.getElementById('patientsTableBody');
             let mContainer = document.getElementById('patientsMobileContainer');
             let dateFilter = document.getElementById('recordDateFilter').value;
             let query = document.getElementById('searchBox').value.toLowerCase();
             
-            tbody.innerHTML = "";
-            mContainer.innerHTML = "";
+            tbody.innerHTML = ""; mContainer.innerHTML = "";
 
             let filtered = patients.filter(p => p.date === dateFilter && p.name.toLowerCase().includes(query));
 
@@ -619,7 +676,6 @@
             }
 
             filtered.forEach(p => {
-                // للكمبيوتر
                 let tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td class="fw-bold text-dark">${p.name}</td>
@@ -633,7 +689,6 @@
                 `;
                 tbody.appendChild(tr);
 
-                // للموبايل (كروت عمودية ممتازة)
                 let mCard = document.createElement('div');
                 mCard.className = "mobile-record-card";
                 mCard.innerHTML = `
@@ -654,9 +709,8 @@
             });
         }
 
-        /* دالة الحذف الفوري المستقرة والمحسنة لتلافي أي مشكلة خروج */
         window.deletePatientAction = function(id) {
-            if(confirm("هل تريد بالتأكيد شطب هذا المريض نهائياً وحساباته؟")) {
+            if(confirm("هل تريد شطب هذا المريض نهائياً؟")) {
                 patients = patients.filter(p => p.id !== id);
                 localStorage.setItem('zamzam_patients', JSON.stringify(patients));
                 renderPatientsTable();
@@ -693,15 +747,14 @@
             let tbody = document.getElementById('accountsTableBody');
             let mContainer = document.getElementById('accountsMobileContainer');
             let dateFilter = document.getElementById('accountDateFilter').value;
-            tbody.innerHTML = "";
-            mContainer.innerHTML = "";
+            tbody.innerHTML = ""; mContainer.innerHTML = "";
             let dayTotal = 0;
 
             let filtered = patients.filter(p => p.date === dateFilter);
 
             if(filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="text-center text-muted py-4">لا توجد حسابات مسجلة لهذا اليوم.</td></tr>`;
-                mContainer.innerHTML = `<p class="text-center text-muted py-3">لا توجد حسابات مسجلة لهذا اليوم.</p>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center text-muted py-4">لا توجد حسابات.</td></tr>`;
+                mContainer.innerHTML = `<p class="text-center text-muted py-3">لا توجد حسابات مسجلة اليوم.</p>`;
                 document.getElementById('dayTotalBadge').innerText = `إجمالي الخزينة اليوم: 0 ج.م`;
                 return;
             }
@@ -713,7 +766,6 @@
                 let docShare = total * 0.60;
                 dayTotal += paid;
 
-                // كمبيوتر
                 let tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td class="fw-bold text-dark text-start">${p.name}</td>
@@ -725,7 +777,6 @@
                 `;
                 tbody.appendChild(tr);
 
-                // موبايل
                 let mCard = document.createElement('div');
                 mCard.className = "mobile-record-card";
                 mCard.style.borderColor = "var(--success-green)";
@@ -786,8 +837,8 @@
             let withDebts = patients.filter(p => (p.totalCost - p.paidCost) > 0);
 
             if(withDebts.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-success py-4 fw-bold">لا توجد مديونيات متأخرة على أي حالة!</td></tr>`;
-                mContainer.innerHTML = `<p class="text-center text-success fw-bold py-3">لا توجد مديونيات متأخرة على أي حالة!</p>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-success py-4 fw-bold">لا توجد مديونيات متأخرة!</td></tr>`;
+                mContainer.innerHTML = `<p class="text-center text-success fw-bold py-3">لا توجد مديونيات متأخرة!</p>`;
                 return;
             }
 
@@ -795,7 +846,6 @@
                 let remaining = p.totalCost - p.paidCost;
                 let docRemShare = remaining * 0.60;
 
-                // كمبيوتر
                 let tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td class="fw-bold text-dark">${p.name}</td>
@@ -806,7 +856,6 @@
                 `;
                 tbody.appendChild(tr);
 
-                // موبايل
                 let mCard = document.createElement('div');
                 mCard.className = "mobile-record-card";
                 mCard.style.borderColor = "var(--danger-red)";
