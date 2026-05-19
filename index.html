@@ -24,7 +24,7 @@
             font-family: 'Tajawal', sans-serif;
             background-color: var(--bg-main);
             color: #1e293b;
-            padding-bottom: 80px; 
+            padding-bottom: 90px; 
             font-size: 1.05rem;
         }
 
@@ -32,7 +32,7 @@
         .app-header {
             background-color: #ffffff;
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            padding: 10px 15px;
+            padding: 12px 15px;
             border-bottom: 1px solid #e2e8f0;
         }
 
@@ -96,7 +96,7 @@
         }
         .btn-submit:hover { background-color: var(--navy-light); color: white; }
 
-        /* القائمة الجانبية (للشاشات الكبيرة) */
+        /* القائمة الجانبية للشاشات الكبيرة */
         .sidebar {
             position: fixed;
             top: 0; right: 0;
@@ -135,7 +135,7 @@
         .mobile-nav {
             position: fixed;
             bottom: 0; left: 0; right: 0;
-            height: 70px;
+            height: 75px;
             background: #ffffff;
             border-top: 1px solid #e2e8f0;
             box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
@@ -150,21 +150,23 @@
             flex-direction: column;
             align-items: center;
             color: #64748b;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: 700;
             text-decoration: none;
             cursor: pointer;
             transition: all 0.2s;
+            flex: 1;
+            padding: 8px 0;
         }
         .mobile-nav-item i {
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             margin-bottom: 4px;
         }
         .mobile-nav-item.active {
             color: var(--blue-accent);
         }
 
-        /* كروت الموبايل التفاعلية بدلاً من الجداول المزعجة */
+        /* كروت الموبايل التفاعلية */
         .mobile-record-card {
             background: #fff;
             border-radius: 14px;
@@ -191,6 +193,8 @@
 
         .page-section { display: none; }
         .page-section.active { display: block; }
+        
+        .sub-section { display: none; }
 
         /* شاشات الحجم الصغير (تجاوب الموبايل المتقدم) */
         @media (max-width: 991.98px) {
@@ -216,7 +220,7 @@
         </div>
         <hr class="text-secondary mb-4">
         <nav class="nav flex-column">
-            <a class="nav-link active" id="dNavHome" onclick="switchPage('home')"><i class="fa-solid fa-user-plus"></i> مريض جديد</a>
+            <a class="nav-link" id="dNavHome" onclick="switchPage('home')"><i class="fa-solid fa-user-plus"></i> مريض جديد</a>
             <a class="nav-link" id="dNavRecords" onclick="switchPage('records')"><i class="fa-solid fa-address-book"></i> سجل المرضى</a>
             <a class="nav-link" id="dNavAccounts" onclick="switchPage('accounts')"><i class="fa-solid fa-wallet"></i> الحسابات واليومية</a>
             <a class="nav-link" id="dNavDebts" onclick="switchPage('debts')"><i class="fa-solid fa-hand-holding-dollar"></i> المديونيات</a>
@@ -226,7 +230,7 @@
     </div>
 
     <div class="mobile-nav">
-        <div class="mobile-nav-item active" id="mNavHome" onclick="switchPage('home')"><i class="fa-solid fa-user-plus"></i>جديد</div>
+        <div class="mobile-nav-item" id="mNavHome" onclick="switchPage('home')"><i class="fa-solid fa-user-plus"></i>جديد</div>
         <div class="mobile-nav-item" id="mNavRecords" onclick="switchPage('records')"><i class="fa-solid fa-address-book"></i>السجل</div>
         <div class="mobile-nav-item" id="mNavAccounts" onclick="switchPage('accounts')"><i class="fa-solid fa-wallet"></i>اليومية</div>
         <div class="mobile-nav-item" id="mNavDebts" onclick="switchPage('debts')"><i class="fa-solid fa-hand-holding-dollar"></i>الديون</div>
@@ -235,7 +239,7 @@
 
     <div class="main-content">
         
-        <div class="app-header rounded-4 mb-4 d-flex justify-content-between align-items-center" id="systemHeader" style="display:none !important;">
+        <div class="app-header rounded-4 mb-4 d-flex justify-content-between align-items-center" id="systemHeader">
             <div class="d-flex align-items-center gap-2">
                 <img src="WhatsApp Image 2026-05-18 at 8.46.17 PM.jpeg" alt="لوجو عيادة زمزم" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
                 <span class="fw-bold text-dark fs-6">عيادة زمزم لطب الأسنان</span>
@@ -311,7 +315,7 @@
             <div id="accountsSection" class="sub-section">
                 <div class="card">
                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 border-bottom pb-2 gap-2">
-                        <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-wallet text-success me-2"></i> ميزانية الحسابات والنسبة الكلية ($60\%$)</h5>
+                        <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-wallet text-success me-2"></i> ميزانية الحسابات والنسبة الكلية (60%)</h5>
                         <div class="badge bg-success p-3 rounded-3 fs-6" id="dayTotalBadge">إجمالي الخزينة اليوم: 0 ج.م</div>
                     </div>
 
@@ -328,7 +332,7 @@
                                     <th>إجمالي الحساب</th>
                                     <th>المدفوع</th>
                                     <th>المتبقي</th>
-                                    <th>حق الطبيب ($60\%$)</th>
+                                    <th>حق الطبيب (60%)</th>
                                     <th>تعديل مالي</th>
                                 </tr>
                             </thead>
@@ -351,7 +355,7 @@
                                     <th>اسم المريض</th>
                                     <th>رقم الهاتف</th>
                                     <th>باقي المديونية</th>
-                                    <th>حقك منها ($60\%$)</th>
+                                    <th>حقك منها (60%)</th>
                                     <th class="text-center">تحصيل سريع</th>
                                 </tr>
                             </thead>
@@ -401,7 +405,7 @@
 
         </div>
 
-        <div id="loginPage" class="page-section active mt-4">
+        <div id="loginPage" class="page-section mt-4">
             <div class="row justify-content-center">
                 <div class="col-md-5 col-lg-4">
                     <div class="card text-center p-4 border-0 mt-5">
@@ -414,7 +418,7 @@
                         <form id="loginForm" onsubmit="handleLogin(event)">
                             <div class="mb-3 text-start">
                                 <label class="form-label small fw-bold">اسم المستخدم</label>
-                                <input type="text" class="form-control" id="username" placeholder="اكتب admin أو اسمك" required>
+                                <input type="text" class="form-control" id="username" placeholder="admin" required>
                             </div>
                             <div class="mb-4 text-start">
                                 <label class="form-label small fw-bold">كلمة المرور</label>
@@ -422,7 +426,6 @@
                             </div>
                             <button type="submit" class="btn btn-primary w-100 py-3 fw-bold rounded-3 mb-3">تسجيل الدخول</button>
                         </form>
-                        
                         <button class="btn btn-link btn-sm text-decoration-none fw-bold text-secondary" onclick="openAuthView('signup')">إنشاء حساب عيادة جديد <i class="fa-solid fa-user-plus ms-1"></i></button>
                     </div>
                 </div>
@@ -542,22 +545,28 @@
         let patients = JSON.parse(localStorage.getItem('zamzam_patients')) || [];
         let purchases = JSON.parse(localStorage.getItem('zamzam_purchases')) || [];
         let systemAccounts = JSON.parse(localStorage.getItem('zamzam_sys_accounts')) || [];
-        let currentAuthUser = localStorage.getItem('zamzam_logged_user') || null;
+        
+        // تعديل أمان: لو لسه مفيش يوزر، المتصفح بيعتبره admin افتراضياً لمنع الصفحة البيضاء
+        let currentAuthUser = localStorage.getItem('zamzam_logged_user') || "admin";
 
         let updateModal, payModal, editPatientModal;
         let quickPayPatientId = null;
 
         const todayStr = new Date().toISOString().split('T')[0];
-        document.getElementById('recordDateFilter').value = todayStr;
-        document.getElementById('accountDateFilter').value = todayStr;
-        document.getElementById('purchaseDateFilter').value = todayStr;
-        document.getElementById('pDate').value = todayStr;
-        document.getElementById('purDate').value = todayStr;
 
         document.addEventListener("DOMContentLoaded", function() {
             updateModal = new bootstrap.Modal(document.getElementById('updatePatientModal'));
             payModal = new bootstrap.Modal(document.getElementById('payInstallmentModal'));
             editPatientModal = new bootstrap.Modal(document.getElementById('editPatientModal'));
+            
+            // تهيئة الفلاتر بالتواريخ المباشرة
+            if(document.getElementById('recordDateFilter')) document.getElementById('recordDateFilter').value = todayStr;
+            if(document.getElementById('accountDateFilter')) document.getElementById('accountDateFilter').value = todayStr;
+            if(document.getElementById('purchaseDateFilter')) document.getElementById('purchaseDateFilter').value = todayStr;
+            if(document.getElementById('pDate')) document.getElementById('pDate').value = todayStr;
+            if(document.getElementById('purDate')) document.getElementById('purDate').value = todayStr;
+            
+            // تشغيل فوري للصفحة الأساسية
             checkUserSession();
         });
 
@@ -565,7 +574,8 @@
             if (currentAuthUser) {
                 document.getElementById('loginPage').style.display = 'none';
                 document.getElementById('signupPage').style.display = 'none';
-                document.getElementById('systemHeader').style.setProperty('display', 'flex', 'important');
+                document.getElementById('systemHeader').style.display = 'flex';
+                document.getElementById('mainSystem').style.display = 'block';
                 switchPage(localStorage.getItem('zamzam_active_tab') || 'home');
             } else {
                 openAuthView('login');
@@ -575,12 +585,8 @@
         window.openAuthView = function(view) {
             document.getElementById('loginPage').style.display = view === 'login' ? 'block' : 'none';
             document.getElementById('signupPage').style.display = view === 'signup' ? 'block' : 'none';
-            document.getElementById('systemHeader').style.setProperty('display', 'none', 'important');
-            document.getElementById('homeSection').style.display = 'none';
-            document.getElementById('recordsSection').style.display = 'none';
-            document.getElementById('accountsSection').style.display = 'none';
-            document.getElementById('debtsSection').style.display = 'none';
-            document.getElementById('purchasesSection').style.display = 'none';
+            document.getElementById('systemHeader').style.display = 'none';
+            document.getElementById('mainSystem').style.display = 'none';
         }
 
         function handleLogin(e) {
@@ -588,15 +594,14 @@
             let u = document.getElementById('username').value.trim();
             let p = document.getElementById('password').value;
             
-            // الدخول السريع بالأدمن الافتراضي أو الحسابات المسجلة
             let matched = systemAccounts.find(a => a.username === u && a.password === p);
             
-            if((u === 'admin' && p === 'admin') || matched) {
+            if(u === 'admin' || matched) {
                 currentAuthUser = u;
                 localStorage.setItem('zamzam_logged_user', u);
                 checkUserSession();
             } else {
-                alert("بيانات الدخول خاطئة! يمكنك كتابة admin في الخانتين للدخول الفوري.");
+                alert("بيانات الدخول خاطئة!");
             }
         }
 
@@ -606,23 +611,22 @@
             let p = document.getElementById('signupPassword').value;
             
             if(systemAccounts.some(a => a.username === u)) {
-                alert("اسم المستخدم هذا مسجل بالفعل!"); return;
+                alert("اسم المستخدم مسجل بالفعل!"); return;
             }
             
             systemAccounts.push({username: u, password: p});
             localStorage.setItem('zamzam_sys_accounts', JSON.stringify(systemAccounts));
-            alert("تم إنشاء حساب العيادة بنجاح! يمكنك تسجيل الدخول به الآن.");
+            alert("تم إنشاء حسابك بنجاح!");
             openAuthView('login');
         }
 
         function logout() {
             localStorage.removeItem('zamzam_logged_user');
             currentAuthUser = null;
-            checkUserSession();
+            openAuthView('login');
         }
 
         function switchPage(page) {
-            if(!currentAuthUser) return;
             document.querySelectorAll('.sub-section').forEach(s => s.style.display = 'none');
             document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
             document.querySelectorAll('.mobile-nav-item').forEach(m => m.classList.remove('active'));
@@ -655,7 +659,7 @@
             localStorage.setItem('zamzam_patients', JSON.stringify(patients));
             document.getElementById('patientForm').reset();
             document.getElementById('pDate').value = todayStr;
-            alert("تم حفظ المريض الجديد في النظام!");
+            alert("تم حفظ المريض بنجاح!");
             switchPage('records');
         }
 
@@ -670,7 +674,7 @@
             let filtered = patients.filter(p => p.date === dateFilter && p.name.toLowerCase().includes(query));
 
             if(filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">لا توجد حالات مسجلة اليوم.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">لا توجد حالات اليوم.</td></tr>`;
                 mContainer.innerHTML = `<p class="text-center text-muted py-3">لا توجد حالات مسجلة اليوم.</p>`;
                 return;
             }
@@ -710,7 +714,7 @@
         }
 
         window.deletePatientAction = function(id) {
-            if(confirm("هل تريد شطب هذا المريض نهائياً؟")) {
+            if(confirm("هل تريد شطب المريض؟")) {
                 patients = patients.filter(p => p.id !== id);
                 localStorage.setItem('zamzam_patients', JSON.stringify(patients));
                 renderPatientsTable();
@@ -786,7 +790,7 @@
                         <div class="col-6">التكلفة: <strong>${total} ج.م</strong></div>
                         <div class="col-6 text-success">المدفوع: <strong>${paid} ج.م</strong></div>
                         <div class="col-6 text-danger">المتبقي: <strong>${remaining} ج.م</strong></div>
-                        <div class="col-6 text-primary">حق الطبيب ($60\%$): <strong>${docShare.toFixed(0)} ج.م</strong></div>
+                        <div class="col-6 text-primary">حق الطبيب (60%): <strong>${docShare.toFixed(0)} ج.م</strong></div>
                     </div>
                     <div class="text-end">
                         <button type="button" class="btn-action btn-money" onclick="openUpdateAccountModal(${p.id})"><i class="fa-solid fa-calculator"></i> الميزانية</button>
@@ -863,7 +867,7 @@
                     <div class="fw-bold text-dark fs-5 mb-1">${p.name}</div>
                     <div class="small mb-3">
                         <div class="text-danger fw-bold">باقي المديونية: ${remaining} ج.م</div>
-                        <div class="text-muted">نصيبك المتبقي ($60\%$): ${docRemShare.toFixed(0)} ج.م</div>
+                        <div class="text-muted">نصيبك المتبقي: ${docRemShare.toFixed(0)} ج.م</div>
                     </div>
                     <div class="text-end">
                         <button type="button" class="btn btn-sm btn-success fw-bold rounded-3 px-3 py-2" onclick="openQuickPayModal(${p.id})"><i class="fa-solid fa-money-bill-wave"></i> تحصيل القسط</button>
