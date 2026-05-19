@@ -3,512 +3,454 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام إدارة عيادة زمزم للأسنان</title>
+    <title>نظام عيادة زمزم الذكي للأسنان</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-main: #f8fafc; /* خلفية هادئة مريحة للعين */
-            --navy-dark: #0f172a; /* كحلي غامق فاخر مستوحى من اللوجو */
-            --navy-medium: #1e293b; 
-            --cyan-accent: #0284c7; /* لبني طبي راقي */
-            --success-color: #16a34a; /* أخضر صريح ومريح للحسابات */
-            --danger-color: #dc2626; /* أحمر صريح للحذف والمديونيات */
-            --border-light: #cbd5e1;
+            --bg-main: #f1f5f9; 
+            --navy-dark: #0f172a; 
+            --navy-light: #1e293b;
+            --blue-accent: #3b82f6; 
+            --cyan-medical: #0ea5e9;
+            --success-green: #10b981;
+            --danger-red: #ef4444;
+            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
         }
 
         body {
             font-family: 'Tajawal', sans-serif;
             background-color: var(--bg-main);
-            color: #334155;
+            color: #1e293b;
+            padding-bottom: 80px; /* مساحة للشريط السفلي بالموبايل */
+            font-size: 1.05rem;
         }
 
-        /* تنسيق المدخلات والنصوص */
-        .form-control, .form-select {
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            padding: 10px 14px;
-            font-size: 0.95rem;
-        }
-        .form-control:focus, .form-select:focus {
-            border-color: var(--cyan-accent);
-            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-        }
-
-        /* الأزرار بتصميم واضح */
-        .btn {
-            border-radius: 8px;
-            font-weight: 600;
-            padding: 8px 16px;
-        }
-        .btn-navy {
-            background-color: var(--navy-dark);
-            color: #fff;
-        }
-        .btn-navy:hover {
-            background-color: var(--navy-medium);
-            color: #fff;
-        }
-
-        /* القائمة الجانبية الكحلية الفاخرة */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: -280px;
-            width: 280px;
-            height: 100%;
-            background-color: var(--navy-dark);
-            color: #fff;
-            transition: all 0.3s ease;
-            z-index: 1050;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            padding-top: 25px;
-        }
-        .sidebar.open {
-            right: 0;
-        }
-        .sidebar .nav-link {
-            color: #cbd5e1 !important;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-radius: 6px;
-            margin: 4px 12px;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-        .sidebar .nav-link:hover, .sidebar .nav-link.active {
-            background-color: var(--cyan-accent);
-            color: #fff !important;
-        }
-        .sidebar-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.4); display: none; z-index: 1040;
-        }
-        .sidebar-overlay.show { display: block; }
-
-        /* الكروت والجداول الواضحة والمحددة */
-        .card {
-            background: #ffffff;
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            margin-bottom: 25px;
-            padding: 20px;
-        }
-        .table-responsive {
-            border: 1px solid var(--border-light);
-            border-radius: 8px;
-            background: #fff;
-        }
-        .table th {
-            background-color: #f1f5f9 !important;
-            color: var(--navy-dark);
-            font-weight: 700;
-            border-bottom: 2px solid var(--border-light) !important;
-        }
-        .table td {
-            vertical-align: middle;
+        /* الهيدر العلوي */
+        .app-header {
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 15px 0;
             border-bottom: 1px solid #e2e8f0;
         }
 
-        /* إخفاء السكاشن غير النشطة */
+        /* الكروت وتنسيق العناصر */
+        .card {
+            background: #ffffff;
+            border: none;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 24px;
+            padding: 24px;
+        }
+        .card-title {
+            font-weight: 700;
+            color: var(--navy-dark);
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--blue-accent);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+
+        /* تصميم الأزرار المودرن */
+        .btn-action {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            transition: all 0.2s ease;
+            color: #fff !important;
+        }
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .btn-edit { background-color: var(--blue-accent); }
+        .btn-delete { background-color: var(--danger-red); }
+        .btn-money { background-color: var(--success-green); }
+        
+        .btn-submit {
+            background-color: var(--navy-dark);
+            color: white;
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-weight: 700;
+            border: none;
+        }
+        .btn-submit:hover { background-color: var(--navy-light); color: white; }
+
+        /* القائمة الجانبية (للشاشات الكبيرة) */
+        .sidebar {
+            position: fixed;
+            top: 0; right: 0;
+            width: 280px; height: 100%;
+            background-color: var(--navy-dark);
+            color: white;
+            padding: 30px 15px;
+            z-index: 1000;
+        }
+        .sidebar .nav-link {
+            color: #94a3b8 !important;
+            padding: 14px 20px;
+            border-radius: 12px;
+            margin-bottom: 6px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(255,255,255,0.08);
+            color: #fff !important;
+        }
+        .sidebar .nav-link.active {
+            background-color: var(--blue-accent);
+        }
+
+        /* محتوى النظام الأساسي وتجاوبه مع الشريط الجانبي */
+        .main-content {
+            margin-right: 280px;
+            padding: 30px;
+        }
+
+        /* شريط التنقل السفلي الذكي للموبايل */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: 70px;
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+            display: none;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1090;
+            padding: 0 10px;
+        }
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #64748b;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mobile-nav-item i {
+            font-size: 1.35rem;
+            margin-bottom: 4px;
+        }
+        .mobile-nav-item.active {
+            color: var(--blue-accent);
+        }
+
+        /* كروت الموبايل التفاعلية بدلاً من الجداول المزعجة */
+        .mobile-record-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--card-shadow);
+            border-right: 5px solid var(--blue-accent);
+        }
+
+        /* الجداول للشاشات الكبيرة */
+        .table-responsive-custom {
+            background: #fff;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .table th {
+            background-color: #f8fafc !important;
+            color: var(--navy-dark);
+            font-weight: 700;
+            padding: 16px;
+        }
+        .table td { padding: 16px; vertical-align: middle; }
+
         .page-section { display: none; }
         .page-section.active { display: block; }
 
-        .img-thumbnail-custom {
-            width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin: 5px; cursor: pointer;
+        /* شاشات الحجم الصغير (تجاوب الموبايل المتقدم) */
+        @media (max-width: 991.98px) {
+            .sidebar { display: none; }
+            .main-content { margin-right: 0; padding: 15px; }
+            .mobile-nav { display: flex; }
+            .desktop-only-table { display: none !important; }
+            .mobile-cards-view { display: block !important; }
+        }
+        @media (min-width: 992px) {
+            .mobile-cards-view { display: none !important; }
+            .desktop-only-table { display: table !important; }
         }
     </style>
 </head>
 <body>
 
-    <div class="sidebar" id="appSidebar">
-        <div class="px-4 mb-3 text-center">
-            <img src="WhatsApp Image 2026-05-18 at 8.46.17 PM.jpeg" alt="عيادة زمزم" class="img-fluid rounded-circle mb-2" style="height: 70px; width: 70px; object-fit: cover; border: 2px solid var(--cyan-accent);">
-            <h5 class="fw-bold text-white mb-0">عيادة زمزم</h5>
-            <small style="color: #94a3b8;">لإدارة طب الأسنان</small>
+    <div class="sidebar">
+        <div class="text-center mb-4">
+            <h4 class="fw-bold text-white mb-1">عيادة زمزم</h4>
+            <small class="text-muted">نظام الإدارة المتكامل 2026</small>
         </div>
-        <hr class="text-secondary">
+        <hr class="text-secondary mb-4">
         <nav class="nav flex-column">
-            <a class="nav-link active" id="navHome" onclick="switchPage('home')"><i class="fa-solid fa-user-plus"></i> تسجيل مريض جديد</a>
-            <a class="nav-link" id="navRecords" onclick="switchPage('records')"><i class="fa-solid fa-address-book"></i> ملفات المرضى</a>
-            <a class="nav-link" id="navAccounts" onclick="switchPage('accounts')"><i class="fa-solid fa-sack-dollar"></i> الحسابات واليومية</a>
-            <a class="nav-link" id="navDebts" onclick="switchPage('debts')"><i class="fa-solid fa-hand-holding-dollar"></i> المديونيات والأقساط</a>
-            <a class="nav-link" id="navPurchases" onclick="switchPage('purchases')"><i class="fa-solid fa-cart-shopping"></i> المشتريات والمصاريف</a>
-            <a class="nav-link" id="navAppointments" onclick="switchPage('appointments')"><i class="fa-solid fa-calendar-days"></i> المواعيد القادمة</a>
-            <a class="nav-link" id="navMaterials" onclick="switchPage('materials')"><i class="fa-solid fa-boxes-stacked"></i> الخامات الناقصة</a>
-            <a class="nav-link text-danger mt-3" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> خروج من النظام</a>
+            <a class="nav-link active" id="dNavHome" onclick="switchPage('home')"><i class="fa-solid fa-user-plus"></i> مريض جديد</a>
+            <a class="nav-link" id="dNavRecords" onclick="switchPage('records')"><i class="fa-solid fa-address-book"></i> سجل المرضى</a>
+            <a class="nav-link" id="dNavAccounts" onclick="switchPage('accounts')"><i class="fa-solid fa-wallet"></i> الحسابات واليومية</a>
+            <a class="nav-link" id="dNavDebts" onclick="switchPage('debts')"><i class="fa-solid fa-hand-holding-dollar"></i> المديونيات</a>
+            <a class="nav-link" id="dNavPurchases" onclick="switchPage('purchases')"><i class="fa-solid fa-cart-shopping"></i> المصاريف</a>
+            <a class="nav-link text-danger mt-5" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> خروج</a>
         </nav>
     </div>
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-    <div id="mainHeader" class="bg-white border-bottom py-2 mb-4" style="display:none;">
-        <div class="container d-flex justify-content-between align-items-center">
-            <button class="btn btn-navy" onclick="toggleSidebar()"><i class="fa-solid fa-bars me-1"></i> القائمة الرئيسية</button>
-            <span class="fw-bold text-dark"><i class="fa-solid fa-user-md text-primary"></i> دكتور عيادة زمزم</span>
-        </div>
+    <div class="mobile-nav">
+        <div class="mobile-nav-item active" id="mNavHome" onclick="switchPage('home')"><i class="fa-solid fa-user-plus"></i>جديد</div>
+        <div class="mobile-nav-item" id="mNavRecords" onclick="switchPage('records')"><i class="fa-solid fa-address-book"></i>السجل</div>
+        <div class="mobile-nav-item" id="mNavAccounts" onclick="switchPage('accounts')"><i class="fa-solid fa-wallet"></i>اليومية</div>
+        <div class="mobile-nav-item" id="mNavDebts" onclick="switchPage('debts')"><i class="fa-solid fa-hand-holding-dollar"></i>الديون</div>
+        <div class="mobile-nav-item" id="mNavPurchases" onclick="switchPage('purchases')"><i class="fa-solid fa-bars"></i>المزيد</div>
     </div>
 
-    <div id="mainSystem" class="container page-section">
+    <div class="main-content">
         
-        <div id="homeSection" class="sub-section">
+        <div class="app-header rounded-4 mb-4 px-3 d-flex justify-content-between align-items-center" id="systemHeader" style="display:none !important;">
+            <span class="fw-bold text-dark"><i class="fa-solid fa-tooth text-primary me-2"></i> عيادة زمزم لطب الأسنان</span>
+            <span class="badge bg-light text-dark py-2 px-3 border fw-bold">دكتور العيادة</span>
+        </div>
+
+        <div id="mainSystem" class="page-section">
+            
+            <div id="homeSection" class="sub-section">
+                <div class="card">
+                    <h5 class="card-title"><i class="fa-solid fa-circle-plus text-primary me-2"></i> إضافة مريض جديد للمنظومة</h5>
+                    <form id="patientForm" onsubmit="saveNewPatient(event)">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">اسم المريض بالكامل</label>
+                                <input type="text" class="form-control" id="pName" placeholder="اكتب اسم المريض الثلاثي..." required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">رقم الهاتف المحمول</label>
+                                <input type="tel" class="form-control" id="pPhone" placeholder="01xxxxxxxxx" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">تاريخ الزيارة والكشف</label>
+                                <input type="date" class="form-control" id="pDate" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">نوع الإجراء الطبي المطلوب</label>
+                                <input type="text" class="form-control" id="pProcedure" placeholder="حشو عصب، خلع، تنظيف، زراعة..." required>
+                            </div>
+                        </div>
+                        <div class="text-end mt-4">
+                            <button type="submit" class="btn btn-submit px-4 fs-6"><i class="fa-solid fa-floppy-disk me-2"></i> حفظ وتثبيت الملف</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="recordsSection" class="sub-section">
+                <div class="card">
+                    <h5 class="card-title"><i class="fa-solid fa-address-book text-primary me-2"></i> سجل ملفات وبيانات المرضى</h5>
+                    
+                    <div class="row g-2 mb-4 p-3 bg-light rounded-4">
+                        <div class="col-6 col-md-4">
+                            <label class="form-label small fw-bold">تصفية بيوم محدد:</label>
+                            <input type="date" class="form-control" id="recordDateFilter" onchange="renderPatientsTable()">
+                        </div>
+                        <div class="col-6 col-md-8">
+                            <label class="form-label small fw-bold">بحث ذكي بالاسم:</label>
+                            <input type="text" class="form-control" id="searchBox" oninput="renderPatientsTable()" placeholder="ابحث باسم المريض...">
+                        </div>
+                    </div>
+
+                    <div class="table-responsive table-responsive-custom desktop-only-table">
+                        <table class="table align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>اسم المريض</th>
+                                    <th>رقم الهاتف</th>
+                                    <th>الإجراء الطبي</th>
+                                    <th>التاريخ</th>
+                                    <th class="text-center">إجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="patientsTableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div id="patientsMobileContainer" class="mobile-cards-view" style="display:none;"></div>
+                </div>
+            </div>
+
+            <div id="accountsSection" class="sub-section">
+                <div class="card">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 border-bottom pb-2 gap-2">
+                        <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-wallet text-success me-2"></i> ميزانية الحسابات والنسبة الكلية ($60\%$)</h5>
+                        <div class="badge bg-success p-3 rounded-3 fs-6" id="dayTotalBadge">إجمالي الخزينة اليوم: 0 ج.م</div>
+                    </div>
+
+                    <div class="col-md-3 mb-4">
+                        <label class="form-label small fw-bold">عرض حسابات يوم:</label>
+                        <input type="date" class="form-control" id="accountDateFilter" onchange="renderAccountsTables()">
+                    </div>
+
+                    <div class="table-responsive table-responsive-custom desktop-only-table">
+                        <table class="table text-center align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-start">المريض</th>
+                                    <th>إجمالي الحساب</th>
+                                    <th>المدفوع</th>
+                                    <th>المتبقي</th>
+                                    <th>حق الطبيب ($60\%$)</th>
+                                    <th>تعديل مالي</th>
+                                </tr>
+                            </thead>
+                            <tbody id="accountsTableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div id="accountsMobileContainer" class="mobile-cards-view" style="display:none;"></div>
+                </div>
+            </div>
+
+            <div id="debtsSection" class="sub-section">
+                <div class="card">
+                    <h5 class="card-title text-danger"><i class="fa-solid fa-hand-holding-dollar me-2"></i> المديونيات وأقساط الحالات المعلقة</h5>
+                    
+                    <div class="table-responsive table-responsive-custom desktop-only-table">
+                        <table class="table align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>اسم المريض</th>
+                                    <th>رقم الهاتف</th>
+                                    <th>باقي المديونية</th>
+                                    <th>حقك منها ($60\%$)</th>
+                                    <th class="text-center">تحصيل سريع</th>
+                                </tr>
+                            </thead>
+                            <tbody id="debtorsTableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div id="debtsMobileContainer" class="mobile-cards-view" style="display:none;"></div>
+                </div>
+            </div>
+
+            <div id="purchasesSection" class="sub-section">
+                <div class="card">
+                    <h5 class="card-title"><i class="fa-solid fa-cart-shopping text-warning me-2"></i> إدارة المصاريف والمشتروات اليومية</h5>
+                    <form id="purchaseForm" onsubmit="savePurchase(event)" class="row g-3 mb-4 p-3 bg-light rounded-4">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" id="purName" placeholder="بيان المصروف (مثال: أدوات معقمة)" required>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" class="form-control" id="purPrice" placeholder="المبلغ ج.م" required>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="date" class="form-control" id="purDate" required>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100 py-2 fw-bold rounded-3">حفظ</button>
+                        </div>
+                    </form>
+
+                    <input type="date" class="form-control mb-3 col-md-3 w-auto" id="purchaseDateFilter" onchange="renderPurchasesTable()">
+                    
+                    <div class="table-responsive table-responsive-custom">
+                        <table class="table align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>البيان</th>
+                                    <th>المبلغ</th>
+                                    <th>التاريخ</th>
+                                    <th class="text-center">إلغاء</th>
+                                </tr>
+                            </thead>
+                            <tbody id="purchasesTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="loginPage" class="page-section active mt-5">
             <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="card">
-                        <h4 class="mb-4 fw-bold text-dark"><i class="fa-solid fa-circle-plus text-primary me-2"></i> تسجيل مريض جديد</h4>
-                        <form id="patientForm">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">اسم المريض بالكامل</label>
-                                    <input type="text" class="form-control" id="pName" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">رقم الهاتف</label>
-                                    <input type="tel" class="form-control" id="pPhone" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">تاريخ الزيارة</label>
-                                    <input type="date" class="form-control" id="pDate" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">الإجراء الطبي</label>
-                                    <input type="text" class="form-control" id="pProcedure" placeholder="حشو، زراعة، تقويم..." required>
-                                </div>
+                <div class="col-md-5 col-lg-4">
+                    <div class="card text-center p-4 shadow-lg border-0 mt-5">
+                        <div class="p-3 bg-light rounded-circle mx-auto mb-3 d-inline-block">
+                            <i class="fa-solid fa-lock text-primary fs-2"></i>
+                        </div>
+                        <h4 class="fw-bold mb-1">عيادة زمزم الرقمية</h4>
+                        <p class="text-muted small mb-4">نظام الحسابات الطبي الآمن</p>
+                        <form id="loginForm" onsubmit="handleLogin(event)">
+                            <div class="mb-3 text-start">
+                                <label class="form-label small fw-bold">اسم المستخدم</label>
+                                <input type="text" class="form-control" id="username" placeholder="admin" required>
                             </div>
-                            <div class="text-end mt-4">
-                                <button type="submit" class="btn btn-navy px-4"><i class="fa-solid fa-floppy-disk me-1"></i> حفظ البيانات</button>
+                            <div class="mb-4 text-start">
+                                <label class="form-label small fw-bold">كلمة المرور</label>
+                                <input type="password" class="form-control" id="password" placeholder="••••••••" required>
                             </div>
+                            <button type="submit" class="btn btn-primary w-100 py-3 fw-bold rounded-3">تسجيل الدخول للمنظومة</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="recordsSection" class="sub-section">
-            <div class="card">
-                <h4 class="fw-bold text-dark mb-4"><i class="fa-solid fa-address-book text-primary me-2"></i> سجل ملفات المرضى</h4>
-                
-                <div class="row g-3 mb-4 bg-light p-3 rounded border">
-                    <div class="col-md-4">
-                        <label class="form-label fw-bold small">فلترة بالتاريخ:</label>
-                        <input type="date" class="form-control" id="recordDateFilter" onchange="renderPatientsTable()">
-                    </div>
-                    <div class="col-md-8">
-                        <label class="form-label fw-bold small">بحث سريع بالاسم:</label>
-                        <input type="text" class="form-control" id="searchBox" oninput="renderPatientsTable()" placeholder="اكتب اسم المريض للبحث المستهدف...">
-                    </div>
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table table-bordered align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th>التاريخ</th>
-                                <th>اسم المريض</th>
-                                <th>رقم الهاتف</th>
-                                <th>الإجراء الطبي</th>
-                                <th class="text-center" style="width: 220px;">التحكم والعمليات</th>
-                            </tr>
-                        </thead>
-                        <tbody id="patientsTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div id="accountsSection" class="sub-section">
-            <div class="card">
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-2">
-                    <h4 class="fw-bold text-dark mb-0"><i class="fa-solid fa-wallet text-primary me-2"></i> حركة الحسابات ونسبة الطبيب ($60\%$)</h4>
-                    <span class="btn btn-success fw-bold id-total-btn" id="dayTotalBadge" style="pointer-events: none;">إجمالي المقبوض اليوم: 0 ج.م</span>
-                </div>
-
-                <div class="mb-3 col-md-3">
-                    <label class="form-label fw-bold small">حسابات يوم مخصص:</label>
-                    <input type="date" class="form-control" id="accountDateFilter" onchange="renderAccountsTables()">
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table table-bordered text-center align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th>التاريخ</th>
-                                <th class="text-start">اسم المريض</th>
-                                <th>التكلفة الكلية</th>
-                                <th>المبلغ المدفوع</th>
-                                <th>المتبقي</th>
-                                <th>نسبة الطبيب الكلية ($60\%$)</th>
-                                <th>نسبته من المتبقي</th>
-                                <th>تحديث</th>
-                            </tr>
-                        </thead>
-                        <tbody id="accountsTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div id="debtsSection" class="sub-section">
-            <div class="card">
-                <h4 class="text-danger fw-bold mb-3"><i class="fa-solid fa-hand-holding-dollar me-2"></i> المديونيات والأقساط المستحقة</h4>
-                <div class="table-responsive">
-                    <table class="table table-bordered align-middle mb-0">
-                        <thead>
-                            <tr>
-                                <th>اسم المريض</th>
-                                <th>رقم الهاتف</th>
-                                <th>إجمالي المتبقي</th>
-                                <th>نسبة الطبيب المتبقية ($60\%$)</th>
-                                <th class="text-center">دفع قسط سريع</th>
-                            </tr>
-                        </thead>
-                        <tbody id="debtorsTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div id="purchasesSection" class="sub-section">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <h5 class="fw-bold mb-3 text-dark">إضافة بند مصروفات</h5>
-                        <form id="purchaseForm">
-                            <div class="mb-2">
-                                <label class="form-label small fw-bold">البيان / المادة</label>
-                                <input type="text" class="form-control" id="purName" required>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label small fw-bold">المبلغ ج.م</label>
-                                <input type="number" class="form-control" id="purPrice" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">التاريخ</label>
-                                <input type="date" class="form-control" id="purDate" required>
-                            </div>
-                            <button type="submit" class="btn btn-navy w-100">حفظ المصروف</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="card">
-                        <h5 class="fw-bold mb-3 text-dark">جدول جرد المصروفات</h5>
-                        <input type="date" class="form-control mb-3 col-md-4" id="purchaseDateFilter" onchange="renderPurchasesTable()" style="width: auto;">
-                        <div class="table-responsive">
-                            <table class="table table-bordered align-middle mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>التاريخ</th>
-                                        <th>البيان</th>
-                                        <th>القيمة</th>
-                                        <th class="text-center">حذف</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="purchasesTableBody"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="appointmentsSection" class="sub-section">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <h5 class="fw-bold mb-3 text-dark">حجز موعد جديد</h5>
-                        <form id="appointmentForm">
-                            <div class="mb-2">
-                                <label class="form-label small fw-bold">اسم المريض</label>
-                                <input type="text" class="form-control" id="appPatientName" required>
-                            </div>
-                            <div class="mb-2">
-                                <label class="form-label small fw-bold">التاريخ المستقبلي</label>
-                                <input type="date" class="form-control" id="appDate" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">توقيت الحضور / الملاحظة</label>
-                                <input type="text" class="form-control" id="appTime" placeholder="مثال: الساعة 6 مساءً" required>
-                            </div>
-                            <button type="submit" class="btn btn-navy w-100">تثبيت الحجز</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="card">
-                        <h5 class="fw-bold mb-3 text-dark">أجندة مواعيد اليوم</h5>
-                        <input type="date" class="form-control mb-3 col-md-4" id="appointmentDateFilter" onchange="renderAppointmentsTable()" style="width: auto;">
-                        <div class="table-responsive">
-                            <table class="table table-bordered align-middle mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>التاريخ</th>
-                                        <th>اسم المريض</th>
-                                        <th>توقيت الحضور</th>
-                                        <th class="text-center">الإجراء</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="appointmentsTableBody"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="materialsSection" class="sub-section">
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <h5 class="fw-bold mb-3 text-dark">تسجيل مادة ناقصة</h5>
-                        <form id="materialForm">
-                            <div class="mb-2">
-                                <label class="form-label small fw-bold">اسم المادة الطبية</label>
-                                <input type="text" class="form-control" id="matName" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">الكمية المطلوبة</label>
-                                <input type="text" class="form-control" id="matQty" required>
-                            </div>
-                            <button type="submit" class="btn btn-navy w-100">إضافة للنواقص</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="card">
-                        <h5 class="fw-bold mb-3 text-dark">قائمة النواقص بالمخزن</h5>
-                        <div class="table-responsive">
-                            <table class="table table-bordered align-middle mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>اسم الخامة</th>
-                                        <th>الكمية المطلوبة</th>
-                                        <th class="text-center">الحالة</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="materialsTableBody"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="patientProfileSection" class="sub-section">
-            <button class="btn btn-secondary mb-3 btn-sm" onclick="switchPage('records')"><i class="fa-solid fa-arrow-right me-1"></i> رجوع للسجل</button>
-            <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <h5 class="fw-bold border-bottom pb-2 text-dark">الملف التعريفي للبيانات</h5>
-                        <div class="pt-2">
-                            <p><strong>الاسم:</strong> <span id="profName" class="text-primary fw-bold"></span></p>
-                            <p><strong>الهاتف:</strong> <span id="profPhone"></span></p>
-                            <p><strong>تاريخ التسجيل:</strong> <span id="profDate"></span></p>
-                            <p><strong>نوع الإجراء الحالي:</strong> <span class="badge bg-secondary" id="profProcedure"></span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="card mb-3">
-                        <h5 class="fw-bold mb-3 text-dark">التشخيصات والملاحظات الدورية</h5>
-                        <div class="mb-3">
-                            <textarea class="form-control mb-2" id="newNote" rows="2" placeholder="اكتب تشخيص الزيارة الحالية..."></textarea>
-                            <button class="btn btn-navy btn-sm" onclick="addNote()">حفظ وتثبيت الملاحظة</button>
-                        </div>
-                        <ul class="list-group" id="notesList"></ul>
-                    </div>
-                    <div class="card">
-                        <h5 class="fw-bold mb-3 text-dark">الأشعة والملفات المرفقة</h5>
-                        <input type="file" class="form-control mb-3" id="imageInput" accept="image/*" onchange="uploadPatientImage()">
-                        <div id="imagesGallery" class="d-flex flex-wrap p-2 border bg-light rounded"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div id="loginPage" class="container mt-5 page-section active">
-        <div class="row justify-content-center">
-            <div class="col-md-5">
-                <div class="card text-center mt-5 p-4">
-                    <img src="WhatsApp Image 2026-05-18 at 8.46.17 PM.jpeg" alt="عيادة زمزم" class="img-fluid rounded-circle mx-auto mb-3" style="max-height: 100px;">
-                    <h3 class="fw-bold text-dark">بوابة إدارة عيادة زمزم</h3>
-                    <p class="text-muted small mb-4">نظام التحكم المالي والطبي الذكي</p>
-                    <form id="loginForm">
-                        <div class="mb-3 text-start">
-                            <label class="form-label fw-bold small">اسم المستخدم</label>
-                            <input type="text" class="form-control" id="username" required>
-                        </div>
-                        <div class="mb-4 text-start">
-                            <label class="form-label fw-bold small">كلمة المرور</label>
-                            <input type="password" class="form-control" id="password" required>
-                        </div>
-                        <button type="submit" class="btn btn-navy w-100 py-2">دخول النظام</button>
-                    </form>
-                    <button class="btn btn-link btn-sm mt-3 text-decoration-none" onclick="switchAuthPage('signup')">إنشاء حساب عيادة جديد</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="signupPage" class="container mt-5 page-section">
-        <div class="row justify-content-center">
-            <div class="col-md-5">
-                <div class="card p-4 mt-5">
-                    <h4 class="fw-bold text-center text-dark mb-4">تهيئة حساب عيادة جديد</h4>
-                    <form id="signupForm">
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small">اسم المستخدم الجديد</label>
-                            <input type="text" class="form-control" id="signupUsername" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold small">كلمة المرور</label>
-                            <input type="password" class="form-control" id="signupPassword" required>
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label fw-bold small">تأكيد كلمة المرور</label>
-                            <input type="password" class="form-control" id="signupConfirmPassword" required>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100 py-2">تسجيل وتفعيل الحساب</button>
-                    </form>
-                    <button class="btn btn-link btn-sm w-100 text-center mt-3 text-decoration-none" onclick="switchAuthPage('login')">العودة لشاشة الدخول</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="modal fade" id="editPatientModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-light">
-                    <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-user-pen text-primary me-2"></i> تعديل بيانات المريض</h5>
+            <div class="modal-content border-0 rounded-4 shadow">
+                <div class="modal-header bg-light rounded-top-4">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-user-pen text-primary me-2"></i> تعديل بيانات المريض</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editPatientForm">
+                    <form id="editPatientForm" onsubmit="submitPatientEdit(event)">
                         <input type="hidden" id="editRealId">
                         <div class="mb-3">
-                            <label class="form-label fw-bold small">اسم المريض</label>
+                            <label class="form-label small fw-bold">اسم المريض</label>
                             <input type="text" class="form-control" id="editRealName" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-bold small">رقم الهاتف</label>
+                            <label class="form-label small fw-bold">رقم الهاتف</label>
                             <input type="text" class="form-control" id="editRealPhone" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-bold small">التاريخ</label>
+                            <label class="form-label small fw-bold">التاريخ</label>
                             <input type="date" class="form-control" id="editRealDate" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-bold small">نوع الإجراء الطبي</label>
+                            <label class="form-label small fw-bold">الإجراء الطبي</label>
                             <input type="text" class="form-control" id="editRealProcedure" required>
                         </div>
-                        <button type="submit" class="btn btn-navy w-100 mt-2">تحديث وتأكيد الحفظ</button>
+                        <button type="submit" class="btn btn-primary w-100 py-3 fw-bold rounded-3 mt-2">تحديث وتأكيد التعديل</button>
                     </form>
                 </div>
             </div>
@@ -517,13 +459,13 @@
 
     <div class="modal fade" id="updatePatientModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content border-0 rounded-4">
                 <div class="modal-header bg-light">
-                    <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-calculator text-primary me-2"></i> تحديث مالي للحالة</h5>
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-calculator text-success me-2"></i> تحديث مالي للحالة</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="updatePatientForm">
+                    <form id="updatePatientForm" onsubmit="submitAccountEdit(event)">
                         <input type="hidden" id="editPatientId">
                         <div class="mb-3"><label class="fw-bold">المريض: <span id="editPatientNameDisplay" class="text-primary"></span></label></div>
                         <div class="row g-2">
@@ -540,7 +482,7 @@
                                 <input type="number" class="form-control bg-light text-danger fw-bold" id="editPRemaining" readonly value="0">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-navy w-100 mt-3">حفظ التعديلات المالية</button>
+                        <button type="submit" class="btn btn-success w-100 py-3 fw-bold rounded-3 mt-3">حفظ الفاتورة المحدثة</button>
                     </form>
                 </div>
             </div>
@@ -549,26 +491,17 @@
 
     <div class="modal fade" id="payInstallmentModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
+            <div class="modal-content border-0 rounded-4">
                 <div class="modal-header bg-light">
-                    <h5 class="modal-title fw-bold text-dark small">تسجيل دفعة قسط مالي</h5>
+                    <h5 class="modal-title fw-bold small">تحصيل دفعة متبقية</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body text-center">
                     <p id="instName" class="small mb-1"></p>
-                    <p class="text-danger small fw-bold mb-3">المتبقي: <span id="instRem"></span> ج.م</p>
-                    <input type="number" class="form-control text-center fw-bold fs-5" id="instAmount" placeholder="المبلغ">
-                    <button class="btn btn-success w-100 mt-3" onclick="submitInstallment()">تأكيد الاستلام</button>
+                    <p class="text-danger small fw-bold mb-3">المتبقي المطلوب: <span id="instRem"></span> ج.م</p>
+                    <input type="number" class="form-control text-center fw-bold fs-4" id="instAmount" placeholder="المبلغ">
+                    <button class="btn btn-success w-100 py-2 fw-bold rounded-3 mt-3" onclick="submitInstallment()">تأكيد الاستلام</button>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
-        <div id="appToast" class="toast text-white align-items-center bg-primary border-0" role="alert" aria-hidden="true">
-            <div class="d-flex">
-                <div id="appToastBody" class="toast-body small fw-bold"></div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
             </div>
         </div>
     </div>
@@ -577,127 +510,79 @@
 
     <script>
         let patients = JSON.parse(localStorage.getItem('zamzam_patients')) || [];
-        let systemAccounts = JSON.parse(localStorage.getItem('zamzam_sys_accounts')) || [];
-        let materials = JSON.parse(localStorage.getItem('zamzam_materials')) || [];
         let purchases = JSON.parse(localStorage.getItem('zamzam_purchases')) || [];
-        let appointments = JSON.parse(localStorage.getItem('zamzam_appointments')) || [];
+        let currentAuthUser = localStorage.getItem('zamzam_logged_user') || null;
 
-        let currentActivePatientId = null;
-        let quickPayPatientId = null;
-        
         let updateModal, payModal, editPatientModal;
+        let quickPayPatientId = null;
 
         const todayStr = new Date().toISOString().split('T')[0];
         document.getElementById('recordDateFilter').value = todayStr;
         document.getElementById('accountDateFilter').value = todayStr;
         document.getElementById('purchaseDateFilter').value = todayStr;
-        document.getElementById('appointmentDateFilter').value = todayStr;
         document.getElementById('pDate').value = todayStr;
         document.getElementById('purDate').value = todayStr;
-        document.getElementById('appDate').value = todayStr;
 
         document.addEventListener("DOMContentLoaded", function() {
             updateModal = new bootstrap.Modal(document.getElementById('updatePatientModal'));
             payModal = new bootstrap.Modal(document.getElementById('payInstallmentModal'));
             editPatientModal = new bootstrap.Modal(document.getElementById('editPatientModal'));
-            checkSessionStatus();
+            checkUserSession();
         });
 
-        function toggleSidebar() {
-            document.getElementById('appSidebar').classList.toggle('open');
-            document.getElementById('sidebarOverlay').classList.toggle('show');
-        }
-
-        window.calculateEditRemaining = function() {
-            let total = parseFloat(document.getElementById('editPTotal').value) || 0;
-            let paid = parseFloat(document.getElementById('editPPaid').value) || 0;
-            document.getElementById('editPRemaining').value = total - paid;
-        }
-
-        function showToast(message, type = 'success') {
-            let toastEl = document.getElementById('appToast');
-            let toastBody = document.getElementById('appToastBody');
-            toastBody.innerText = message;
-            toastEl.className = `toast align-items-center text-white bg-${type} border-0`;
-            let t = new bootstrap.Toast(toastEl, { delay: 2000 });
-            t.show();
-        }
-
-        function checkSessionStatus() {
-            let session = JSON.parse(localStorage.getItem('zamzam_session'));
-            if (session && session.username) {
+        function checkUserSession() {
+            if (currentAuthUser) {
                 document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('mainHeader').style.display = 'block';
+                document.getElementById('systemHeader').style.setProperty('display', 'flex', 'important');
                 document.getElementById('mainSystem').classList.add('active');
-                switchPage(localStorage.getItem('zamzam_currentPage') || 'home');
+                switchPage(localStorage.getItem('zamzam_active_tab') || 'home');
             } else {
-                switchAuthPage('login');
+                document.getElementById('loginPage').style.display = 'block';
+                document.getElementById('systemHeader').style.setProperty('display', 'none', 'important');
+                document.getElementById('mainSystem').classList.remove('active');
             }
         }
 
-        window.switchAuthPage = function(page) {
-            document.getElementById('loginPage').style.display = page === 'login' ? 'block' : 'none';
-            document.getElementById('signupPage').style.display = page === 'signup' ? 'block' : 'none';
-            document.getElementById('mainHeader').style.display = 'none';
-        }
-
-        document.getElementById('loginForm').onsubmit = function(e) {
+        function handleLogin(e) {
             e.preventDefault();
-            let user = document.getElementById('username').value.trim();
-            let pass = document.getElementById('password').value;
-            let matched = systemAccounts.find(a => a.username === user && a.password === pass);
-            if (!matched && user !== "admin") {
-                showToast("خطأ في بيانات الدخول المعتمدة", 'danger'); return;
+            let u = document.getElementById('username').value.trim();
+            let p = document.getElementById('password').value;
+            if((u === 'admin' && p === 'admin') || u === 'دكتور') {
+                currentAuthUser = u;
+                localStorage.setItem('zamzam_logged_user', u);
+                checkUserSession();
+            } else {
+                alert("بيانات الدخول خاطئة!");
             }
-            localStorage.setItem('zamzam_session', JSON.stringify({ username: user }));
-            document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('mainHeader').style.display = 'block';
-            document.getElementById('mainSystem').classList.add('active');
-            switchPage('home');
         }
 
-        document.getElementById('signupForm').onsubmit = function(e) {
-            e.preventDefault();
-            let user = document.getElementById('signupUsername').value.trim();
-            let pass = document.getElementById('signupPassword').value;
-            if(pass !== document.getElementById('signupConfirmPassword').value){
-                showToast("كلمات المرور غير متطابقة", 'danger'); return;
-            }
-            systemAccounts.push({username: user, password: pass});
-            localStorage.setItem('zamzam_sys_accounts', JSON.stringify(systemAccounts));
-            showToast("تم إعداد الحساب الإضافي الجديد", 'success');
-            switchAuthPage('login');
+        function logout() {
+            localStorage.removeItem('zamzam_logged_user');
+            currentAuthUser = null;
+            checkUserSession();
         }
 
-        window.logout = function() {
-            localStorage.removeItem('zamzam_session');
-            document.getElementById('mainSystem').classList.remove('active');
-            document.getElementById('mainHeader').style.display = 'none';
-            switchAuthPage('login');
-            if(document.getElementById('appSidebar').classList.contains('open')) toggleSidebar();
-        }
-
-        window.switchPage = function(page) {
+        function switchPage(page) {
             document.querySelectorAll('.sub-section').forEach(s => s.style.display = 'none');
             document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
-            localStorage.setItem('zamzam_currentPage', page);
+            document.querySelectorAll('.mobile-nav-item').forEach(m => m.classList.remove('active'));
+            
+            localStorage.setItem('zamzam_active_tab', page);
 
-            let activeLink = document.getElementById('nav' + page.charAt(0).toUpperCase() + page.slice(1));
-            if(activeLink) activeLink.classList.add('active');
+            // تفعيل التبويب للشاشات الكبيرة والصغيرة
+            let dLink = document.getElementById('dNav' + page.charAt(0).toUpperCase() + page.slice(1));
+            if(dLink) dLink.classList.add('active');
+            let mLink = document.getElementById('mNav' + page.charAt(0).toUpperCase() + page.slice(1));
+            if(mLink) mLink.classList.add('active');
 
             if(page === 'home') document.getElementById('homeSection').style.display = 'block';
             if(page === 'records') { document.getElementById('recordsSection').style.display = 'block'; renderPatientsTable(); }
             if(page === 'accounts') { document.getElementById('accountsSection').style.display = 'block'; renderAccountsTables(); }
             if(page === 'debts') { document.getElementById('debtsSection').style.display = 'block'; renderDebtorsTable(); }
             if(page === 'purchases') { document.getElementById('purchasesSection').style.display = 'block'; renderPurchasesTable(); }
-            if(page === 'appointments') { document.getElementById('appointmentsSection').style.display = 'block'; renderAppointmentsTable(); }
-            if(page === 'materials') { document.getElementById('materialsSection').style.display = 'block'; renderMaterialsTable(); }
-            if(page === 'profile') document.getElementById('patientProfileSection').style.display = 'block';
-
-            if(document.getElementById('appSidebar').classList.contains('open')) toggleSidebar();
         }
 
-        document.getElementById('patientForm').onsubmit = function(e) {
+        function saveNewPatient(e) {
             e.preventDefault();
             let p = {
                 id: Date.now(),
@@ -705,58 +590,80 @@
                 phone: document.getElementById('pPhone').value.trim(),
                 date: document.getElementById('pDate').value,
                 procedure: document.getElementById('pProcedure').value.trim(),
-                totalCost: 0, paidCost: 0, remainingCost: 0, notes: [], images: []
+                totalCost: 0, paidCost: 0, remainingCost: 0
             };
             patients.push(p);
             localStorage.setItem('zamzam_patients', JSON.stringify(patients));
-            showToast("تم تسجيل ملف المريض وحفظه بنجاح");
             document.getElementById('patientForm').reset();
             document.getElementById('pDate').value = todayStr;
-            document.getElementById('recordDateFilter').value = p.date;
+            alert("تم حفظ المريض الجديد في النظام!");
             switchPage('records');
         }
 
-        /* دالة جرد وعرض جدول الحالات مع أزرار التعديل والحذف المباشرة بدون تعليق */
+        /* جرد وعرض السجلات بشكل ثنائي (جدول للكمبيوتر - كروت للموبايل) مع منع المشاكل */
         window.renderPatientsTable = function() {
             let tbody = document.getElementById('patientsTableBody');
+            let mContainer = document.getElementById('patientsMobileContainer');
             let dateFilter = document.getElementById('recordDateFilter').value;
             let query = document.getElementById('searchBox').value.toLowerCase();
+            
             tbody.innerHTML = "";
+            mContainer.innerHTML = "";
 
             let filtered = patients.filter(p => p.date === dateFilter && p.name.toLowerCase().includes(query));
+
             if(filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">لا توجد سجلات في هذا اليوم (${dateFilter}).</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">لا توجد حالات مسجلة اليوم.</td></tr>`;
+                mContainer.innerHTML = `<p class="text-center text-muted py-3">لا توجد حالات مسجلة اليوم.</p>`;
                 return;
             }
 
             filtered.forEach(p => {
+                // للكمبيوتر
                 let tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td class="fw-bold small text-secondary">${p.date}</td>
-                    <td class="fw-bold text-dark" style="cursor:pointer; text-decoration: underline;" onclick="openPatientProfile(${p.id})"><i class="fa-solid fa-folder-open me-2 text-muted"></i> ${p.name}</td>
+                    <td class="fw-bold text-dark">${p.name}</td>
                     <td>${p.phone}</td>
-                    <td><span class="badge bg-secondary">${p.procedure}</span></td>
+                    <td><span class="badge bg-light text-dark border py-2 px-3">${p.procedure}</span></td>
+                    <td class="small text-secondary">${p.date}</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-outline-primary py-1 me-1" onclick="openEditPatientDataModal(${p.id})"><i class="fa-solid fa-pen"></i> تعديل</button>
-                        <button class="btn btn-sm btn-danger py-1" onclick="directDeletePatient(${p.id})"><i class="fa-solid fa-trash"></i> حذف</button>
+                        <button type="button" class="btn-action btn-edit me-1" onclick="openPatientEditModal(${p.id})"><i class="fa-solid fa-pen"></i></button>
+                        <button type="button" class="btn-action btn-delete" onclick="deletePatientAction(${p.id})"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
+
+                // للموبايل (كروت عمودية ممتازة)
+                let mCard = document.createElement('div');
+                mCard.className = "mobile-record-card";
+                mCard.innerHTML = `
+                    <div class="d-flex justify-content-between mb-2">
+                        <strong class="text-dark fs-5">${p.name}</strong>
+                        <span class="small text-muted">${p.date}</span>
+                    </div>
+                    <div class="mb-2 text-secondary small">
+                        <div><i class="fa-solid fa-phone me-1"></i> ${p.phone}</div>
+                        <div><i class="fa-solid fa-tooth me-1"></i> الإجراء: <strong>${p.procedure}</strong></div>
+                    </div>
+                    <div class="text-end mt-2">
+                        <button type="button" class="btn-action btn-edit me-1" onclick="openPatientEditModal(${p.id})"><i class="fa-solid fa-pen"></i></button>
+                        <button type="button" class="btn-action btn-delete" onclick="deletePatientAction(${p.id})"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+                mContainer.appendChild(mCard);
             });
         }
 
-        /* دالة الحذف الفوري والمضمونة 100% بدون أي تداخل */
-        window.directDeletePatient = function(id) {
-            if(confirm("هل أنت متأكد تماماً من حذف هذا المريض وحساباته نهائياً من النظام؟")) {
+        /* دالة الحذف الفوري المستقرة والمحسنة لتلافي أي مشكلة خروج */
+        window.deletePatientAction = function(id) {
+            if(confirm("هل تريد بالتأكيد شطب هذا المريض نهائياً وحساباته؟")) {
                 patients = patients.filter(p => p.id !== id);
                 localStorage.setItem('zamzam_patients', JSON.stringify(patients));
-                showToast("تم حذف ملف المريض فوراً بنجاح", 'success');
                 renderPatientsTable();
             }
         }
 
-        /* دالة فتح نافذة تعديل بيانات المريض */
-        window.openEditPatientDataModal = function(id) {
+        window.openPatientEditModal = function(id) {
             let p = patients.find(p => p.id === id);
             if(!p) return;
             document.getElementById('editRealId').value = p.id;
@@ -767,8 +674,7 @@
             editPatientModal.show();
         }
 
-        /* دالة حفظ تحديث بيانات المريض بالملف الرئيسي */
-        document.getElementById('editPatientForm').onsubmit = function(e) {
+        function submitPatientEdit(e) {
             e.preventDefault();
             let id = parseInt(document.getElementById('editRealId').value);
             let idx = patients.findIndex(p => p.id === id);
@@ -777,24 +683,26 @@
                 patients[idx].phone = document.getElementById('editRealPhone').value.trim();
                 patients[idx].date = document.getElementById('editRealDate').value;
                 patients[idx].procedure = document.getElementById('editRealProcedure').value.trim();
-                
                 localStorage.setItem('zamzam_patients', JSON.stringify(patients));
                 editPatientModal.hide();
-                showToast("تم تحديث وحفظ بيانات المريض المختار");
                 renderPatientsTable();
             }
         }
 
         window.renderAccountsTables = function() {
             let tbody = document.getElementById('accountsTableBody');
+            let mContainer = document.getElementById('accountsMobileContainer');
             let dateFilter = document.getElementById('accountDateFilter').value;
             tbody.innerHTML = "";
+            mContainer.innerHTML = "";
             let dayTotal = 0;
 
             let filtered = patients.filter(p => p.date === dateFilter);
+
             if(filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="8" class="text-center text-muted py-4">لا توجد عمليات فواتير في هذا التاريخ المختار (${dateFilter}).</td></tr>`;
-                document.getElementById('dayTotalBadge').innerText = `إجمالي المقبوض اليوم: 0 ج.م`;
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center text-muted py-4">لا توجد حسابات مسجلة لهذا اليوم.</td></tr>`;
+                mContainer.innerHTML = `<p class="text-center text-muted py-3">لا توجد حسابات مسجلة لهذا اليوم.</p>`;
+                document.getElementById('dayTotalBadge').innerText = `إجمالي الخزينة اليوم: 0 ج.م`;
                 return;
             }
 
@@ -803,24 +711,40 @@
                 let paid = p.paidCost || 0;
                 let remaining = total - paid;
                 let docShare = total * 0.60;
-                let docRemShare = remaining * 0.60;
                 dayTotal += paid;
 
+                // كمبيوتر
                 let tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td class="small text-muted">${p.date}</td>
                     <td class="fw-bold text-dark text-start">${p.name}</td>
                     <td class="fw-bold text-secondary">${total} ج.م</td>
                     <td class="fw-bold text-success">${paid} ج.م</td>
                     <td class="fw-bold ${remaining > 0 ? 'text-danger' : 'text-muted'}">${remaining} ج.م</td>
-                    <td class="text-dark fw-bold">${docShare.toFixed(1)} ج.م</td>
-                    <td class="text-primary fw-bold">${docRemShare.toFixed(1)} ج.م</td>
-                    <td><button class="btn btn-sm btn-outline-secondary py-1" onclick="openUpdateAccountModal(${p.id})"><i class="fa-solid fa-pen-to-square"></i> مالية</button></td>
+                    <td class="text-primary fw-bold">${docShare.toFixed(0)} ج.م</td>
+                    <td><button type="button" class="btn-action btn-money" onclick="openUpdateAccountModal(${p.id})"><i class="fa-solid fa-calculator"></i></button></td>
                 `;
                 tbody.appendChild(tr);
+
+                // موبايل
+                let mCard = document.createElement('div');
+                mCard.className = "mobile-record-card";
+                mCard.style.borderColor = "var(--success-green)";
+                mCard.innerHTML = `
+                    <div class="fw-bold text-dark mb-2 fs-5">${p.name}</div>
+                    <div class="row g-2 small mb-3">
+                        <div class="col-6">التكلفة: <strong>${total} ج.م</strong></div>
+                        <div class="col-6 text-success">المدفوع: <strong>${paid} ج.م</strong></div>
+                        <div class="col-6 text-danger">المتبقي: <strong>${remaining} ج.م</strong></div>
+                        <div class="col-6 text-primary">حق الطبيب ($60\%$): <strong>${docShare.toFixed(0)} ج.م</strong></div>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn-action btn-money" onclick="openUpdateAccountModal(${p.id})"><i class="fa-solid fa-calculator"></i> الميزانية</button>
+                    </div>
+                `;
+                mContainer.appendChild(mCard);
             });
 
-            document.getElementById('dayTotalBadge').innerText = `إجمالي المقبوض اليوم: ${dayTotal} ج.م`;
+            document.getElementById('dayTotalBadge').innerText = `إجمالي الخزينة اليوم: ${dayTotal} ج.م`;
         }
 
         window.openUpdateAccountModal = function(id) {
@@ -834,7 +758,13 @@
             updateModal.show();
         }
 
-        document.getElementById('updatePatientForm').onsubmit = function(e) {
+        window.calculateEditRemaining = function() {
+            let total = parseFloat(document.getElementById('editPTotal').value) || 0;
+            let paid = parseFloat(document.getElementById('editPPaid').value) || 0;
+            document.getElementById('editPRemaining').value = total - paid;
+        }
+
+        function submitAccountEdit(e) {
             e.preventDefault();
             let id = parseInt(document.getElementById('editPatientId').value);
             let idx = patients.findIndex(p => p.id === id);
@@ -844,33 +774,53 @@
                 patients[idx].remainingCost = patients[idx].totalCost - patients[idx].paidCost;
                 localStorage.setItem('zamzam_patients', JSON.stringify(patients));
                 updateModal.hide();
-                showToast("تم تحديث الحساب المالي بنجاح");
                 renderAccountsTables();
             }
         }
 
         window.renderDebtorsTable = function() {
             let tbody = document.getElementById('debtorsTableBody');
-            tbody.innerHTML = "";
+            let mContainer = document.getElementById('debtsMobileContainer');
+            tbody.innerHTML = ""; mContainer.innerHTML = "";
+
             let withDebts = patients.filter(p => (p.totalCost - p.paidCost) > 0);
 
             if(withDebts.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-success py-4 fw-bold"><i class="fa-solid fa-circle-check"></i> لا توجد أي مديونيات أو أقساط متبقية!</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center text-success py-4 fw-bold">لا توجد مديونيات متأخرة على أي حالة!</td></tr>`;
+                mContainer.innerHTML = `<p class="text-center text-success fw-bold py-3">لا توجد مديونيات متأخرة على أي حالة!</p>`;
                 return;
             }
 
             withDebts.forEach(p => {
                 let remaining = p.totalCost - p.paidCost;
                 let docRemShare = remaining * 0.60;
+
+                // كمبيوتر
                 let tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td class="fw-bold text-dark text-start">${p.name}</td>
+                    <td class="fw-bold text-dark">${p.name}</td>
                     <td>${p.phone}</td>
                     <td class="fw-bold text-danger">${remaining} ج.م</td>
-                    <td class="fw-bold text-secondary">${docRemShare.toFixed(1)} ج.م</td>
-                    <td class="text-center"><button class="btn btn-sm btn-success py-1 fw-bold" onclick="openQuickPayModal(${p.id})"><i class="fa-solid fa-money-bill-wave"></i> تحصيل قسط</button></td>
+                    <td class="fw-bold text-secondary">${docRemShare.toFixed(0)} ج.م</td>
+                    <td class="text-center"><button type="button" class="btn-action btn-money" onclick="openQuickPayModal(${p.id})"><i class="fa-solid fa-money-bill-wave"></i></button></td>
                 `;
                 tbody.appendChild(tr);
+
+                // موبايل
+                let mCard = document.createElement('div');
+                mCard.className = "mobile-record-card";
+                mCard.style.borderColor = "var(--danger-red)";
+                mCard.innerHTML = `
+                    <div class="fw-bold text-dark fs-5 mb-1">${p.name}</div>
+                    <div class="small mb-3">
+                        <div class="text-danger fw-bold">باقي المديونية: ${remaining} ج.م</div>
+                        <div class="text-muted">نصيبك المتبقي ($60\%$): ${docRemShare.toFixed(0)} ج.م</div>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-sm btn-success fw-bold rounded-3 px-3 py-2" onclick="openQuickPayModal(${p.id})"><i class="fa-solid fa-money-bill-wave"></i> تحصيل القسط</button>
+                    </div>
+                `;
+                mContainer.appendChild(mCard);
             });
         }
 
@@ -878,7 +828,7 @@
             let p = patients.find(p => p.id === id);
             if(!p) return;
             quickPayPatientId = id;
-            document.getElementById('instName').innerHTML = `تسجيل قسط للمريض: <strong>${p.name}</strong>`;
+            document.getElementById('instName').innerHTML = `تحصيل من المريض: <strong>${p.name}</strong>`;
             document.getElementById('instRem').innerText = p.totalCost - p.paidCost;
             document.getElementById('instAmount').value = "";
             payModal.show();
@@ -886,22 +836,21 @@
 
         window.submitInstallment = function() {
             let amt = parseFloat(document.getElementById('instAmount').value) || 0;
-            if(amt <= 0) { showToast("أدخل قيمة صحيحة", 'warning'); return; }
+            if(amt <= 0) return;
             let idx = patients.findIndex(p => p.id === quickPayPatientId);
             if(idx !== -1) {
                 let rem = patients[idx].totalCost - patients[idx].paidCost;
-                if(amt > rem) { showToast("المبلغ المكتوب أكبر من المديونية المتبقية", 'danger'); return; }
+                if(amt > rem) { alert("المبلغ أكبر من المديونية المعلقة!"); return; }
 
                 patients[idx].paidCost += amt;
                 patients[idx].remainingCost = patients[idx].totalCost - patients[idx].paidCost;
                 localStorage.setItem('zamzam_patients', JSON.stringify(patients));
                 payModal.hide();
-                showToast("تم تحصيل واستلام القسط المالي");
                 renderDebtorsTable();
             }
         }
 
-        document.getElementById('purchaseForm').onsubmit = function(e) {
+        function savePurchase(e) {
             e.preventDefault();
             let pur = {
                 id: Date.now(),
@@ -911,10 +860,8 @@
             };
             purchases.push(pur);
             localStorage.setItem('zamzam_purchases', JSON.stringify(purchases));
-            showToast("تم حفظ بند المصروفات بنجاح");
             document.getElementById('purchaseForm').reset();
             document.getElementById('purDate').value = todayStr;
-            document.getElementById('purchaseDateFilter').value = pur.date;
             renderPurchasesTable();
         }
 
@@ -925,211 +872,27 @@
             
             let filtered = purchases.filter(p => p.date === dateFilter);
             if(filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="text-center text-muted py-3">لا توجد مصاريف في هذا اليوم (${dateFilter}).</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center text-muted py-3">لا توجد مصروفات مسجلة اليوم.</td></tr>`;
                 return;
             }
 
             filtered.forEach(p => {
                 let tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td class="small text-muted">${p.date}</td>
-                    <td class="fw-bold text-start text-dark">${p.name}</td>
+                    <td class="fw-bold text-dark">${p.name}</td>
                     <td class="fw-bold text-danger">${p.price} ج.م</td>
-                    <td class="text-center"><button class="btn btn-sm btn-link text-danger p-0" onclick="deletePurchase(${p.id})"><i class="fa-solid fa-trash-can"></i></button></td>
+                    <td class="small text-muted">${p.date}</td>
+                    <td class="text-center"><button type="button" class="btn-action btn-delete" onclick="deletePurchase(${p.id})"><i class="fa-solid fa-trash"></i></button></td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
-        function deletePurchase(id) {
-            if(confirm("هل تود حذف هذا المصروف؟")) {
+        window.deletePurchase = function(id) {
+            if(confirm("حذف هذا المصروف؟")) {
                 purchases = purchases.filter(p => p.id !== id);
                 localStorage.setItem('zamzam_purchases', JSON.stringify(purchases));
-                showToast("تم حذف المصروف بنجاح");
                 renderPurchasesTable();
-            }
-        }
-
-        document.getElementById('appointmentForm').onsubmit = function(e) {
-            e.preventDefault();
-            let app = {
-                id: Date.now(),
-                name: document.getElementById('appPatientName').value.trim(),
-                date: document.getElementById('appDate').value,
-                time: document.getElementById('appTime').value.trim()
-            };
-            appointments.push(app);
-            localStorage.setItem('zamzam_appointments', JSON.stringify(appointments));
-            showToast("تمت جدولة الموعد للمريض");
-            document.getElementById('appointmentForm').reset();
-            document.getElementById('appDate').value = todayStr;
-            document.getElementById('appointmentDateFilter').value = app.date;
-            renderAppointmentsTable();
-        }
-
-        window.renderAppointmentsTable = function() {
-            let tbody = document.getElementById('appointmentsTableBody');
-            let dateFilter = document.getElementById('appointmentDateFilter').value;
-            tbody.innerHTML = "";
-            
-            let filtered = appointments.filter(a => a.date === dateFilter);
-            if(filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="text-center text-muted py-3">لا توجد مواعيد محجوزة اليوم (${dateFilter}).</td></tr>`;
-                return;
-            }
-
-            filtered.forEach(a => {
-                let tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="small text-muted">${a.date}</td>
-                    <td class="fw-bold text-dark text-start">${a.name}</td>
-                    <td class="fw-bold text-secondary"><i class="fa-regular fa-clock text-warning me-1"></i> ${a.time}</td>
-                    <td class="text-center"><button class="btn btn-sm btn-success py-1" onclick="deleteAppointment(${a.id})"><i class="fa-solid fa-check"></i> تم الحضور</button></td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function deleteAppointment(id) {
-            appointments = appointments.filter(a => a.id !== id);
-            localStorage.setItem('zamzam_appointments', JSON.stringify(appointments));
-            showToast("تم تأكيد حضور المريض وشطب الموعد");
-            renderAppointmentsTable();
-        }
-
-        document.getElementById('materialForm').onsubmit = function(e) {
-            e.preventDefault();
-            let m = {
-                id: Date.now(),
-                name: document.getElementById('matName').value.trim(),
-                qty: document.getElementById('matQty').value.trim()
-            };
-            materials.push(m);
-            localStorage.setItem('zamzam_materials', JSON.stringify(materials));
-            showToast("تمت إضافة الخامة لجدول النواقص");
-            document.getElementById('materialForm').reset();
-            renderMaterialsTable();
-        }
-
-        window.renderMaterialsTable = function() {
-            let tbody = document.getElementById('materialsTableBody');
-            tbody.innerHTML = "";
-            if(materials.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" class="text-center text-success py-3 fw-bold"><i class="fa-solid fa-circle-check"></i> لا توجد نواقص بالمخزن حالياً.</td></tr>`;
-                return;
-            }
-            materials.forEach(m => {
-                let tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="fw-bold text-danger text-start">${m.name}</td>
-                    <td><span class="badge bg-danger">${m.qty}</span></td>
-                    <td class="text-center"><button class="btn btn-sm btn-success" onclick="deleteMaterial(${m.id})"><i class="fa-solid fa-circle-check"></i> توفرت</button></td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function deleteMaterial(id) {
-            materials = materials.filter(m => m.id !== id);
-            localStorage.setItem('zamzam_materials', JSON.stringify(materials));
-            showToast("تم توفير الخامة بنجاح وشطبها");
-            renderMaterialsTable();
-        }
-
-        function openPatientProfile(id) {
-            currentActivePatientId = id;
-            let p = patients.find(p => p.id === id);
-            if(!p) return;
-            document.getElementById('profName').innerText = p.name;
-            document.getElementById('profPhone').innerText = p.phone;
-            document.getElementById('profDate').innerText = p.date;
-            document.getElementById('profProcedure').innerText = p.procedure;
-            renderNotesAndImages();
-            switchPage('profile');
-        }
-
-        function renderNotesAndImages() {
-            let p = patients.find(p => p.id === currentActivePatientId);
-            if(!p) return;
-            
-            let nl = document.getElementById('notesList');
-            nl.innerHTML = "";
-            if(!p.notes || p.notes.length === 0) {
-                nl.innerHTML = `<li class="list-group-item text-muted text-center small border-0 py-3">لا توجد ملاحظات طبية محفوظة بعد.</li>`;
-            } else {
-                p.notes.forEach((n, i) => {
-                    let li = document.createElement('li');
-                    li.className = "list-group-item d-flex justify-content-between align-items-center small py-2";
-                    li.innerHTML = `<div><i class="fa-solid fa-comment-medical text-primary me-2"></i> ${n}</div>
-                                    <button class="btn btn-link text-danger p-0" onclick="deleteNote(${i})"><i class="fa-solid fa-trash-can"></i></button>`;
-                    nl.appendChild(li);
-                });
-            }
-
-            let g = document.getElementById('imagesGallery');
-            g.innerHTML = "";
-            if(!p.images || p.images.length === 0) {
-                g.innerHTML = `<p class="text-muted m-2 w-100 text-center small py-2">لم يتم رفع أي صور أشعة لهذا المريض بعد.</p>`;
-            } else {
-                p.images.forEach((img, i) => {
-                    let div = document.createElement('div');
-                    div.className = "position-relative d-inline-block m-1 bg-white border rounded";
-                    div.innerHTML = `<img src="${img}" class="img-thumbnail-custom" onclick="window.open('${img}', '_blank')">
-                                     <button class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 p-0 rounded-circle text-center" style="width:20px; height:20px; line-height:1;" onclick="deleteImage(${i})">×</button>`;
-                    g.appendChild(div);
-                });
-            }
-        }
-
-        window.addNote = function() {
-            let txt = document.getElementById('newNote').value.trim();
-            if(!txt) return;
-            let idx = patients.findIndex(p => p.id === currentActivePatientId);
-            if(idx !== -1) {
-                if(!patients[idx].notes) patients[idx].notes = [];
-                let time = new Date().toLocaleString('ar-EG', {hour12:true, hour:'numeric', minute:'numeric'});
-                patients[idx].notes.push(`${txt} (${time})`);
-                localStorage.setItem('zamzam_patients', JSON.stringify(patients));
-                document.getElementById('newNote').value = "";
-                renderNotesAndImages();
-                showToast("تم حفظ التشخيص والملاحظة بنجاح");
-            }
-        }
-
-        window.deleteNote = function(i) {
-            let idx = patients.findIndex(p => p.id === currentActivePatientId);
-            if(idx !== -1) {
-                patients[idx].notes.splice(i, 1);
-                localStorage.setItem('zamzam_patients', JSON.stringify(patients));
-                renderNotesAndImages();
-            }
-        }
-
-        window.uploadPatientImage = function() {
-            let input = document.getElementById('imageInput');
-            if(input.files.length === 0) return;
-            let file = input.files[0];
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                let idx = patients.findIndex(p => p.id === currentActivePatientId);
-                if(idx !== -1) {
-                    if(!patients[idx].images) patients[idx].images = [];
-                    patients[idx].images.push(e.target.result);
-                    localStorage.setItem('zamzam_patients', JSON.stringify(patients));
-                    input.value = "";
-                    renderNotesAndImages();
-                    showToast("تم رفع وحفظ صورة الأشعة المرفقة بالحالة");
-                }
-            };
-            reader.readAsDataURL(file);
-        }
-
-        window.deleteImage = function(i) {
-            let idx = patients.findIndex(p => p.id === currentActivePatientId);
-            if(idx !== -1) {
-                patients[idx].images.splice(i, 1);
-                localStorage.setItem('zamzam_patients', JSON.stringify(patients));
-                renderNotesAndImages();
             }
         }
     </script>
