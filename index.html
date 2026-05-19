@@ -116,6 +116,7 @@
             align-items: center;
             gap: 12px;
             text-decoration: none;
+            cursor: pointer;
         }
         .sidebar .nav-link:hover, .sidebar .nav-link.active {
             background-color: rgba(255,255,255,0.08);
@@ -191,11 +192,6 @@
         }
         .table td { padding: 16px; vertical-align: middle; }
 
-        .page-section { display: none; }
-        .page-section.active { display: block; }
-        
-        .sub-section { display: none; }
-
         /* شاشات الحجم الصغير (تجاوب الموبايل المتقدم) */
         @media (max-width: 991.98px) {
             .sidebar { display: none; }
@@ -220,7 +216,7 @@
         </div>
         <hr class="text-secondary mb-4">
         <nav class="nav flex-column">
-            <a class="nav-link" id="dNavHome" onclick="switchPage('home')"><i class="fa-solid fa-user-plus"></i> مريض جديد</a>
+            <a class="nav-link active" id="dNavHome" onclick="switchPage('home')"><i class="fa-solid fa-user-plus"></i> مريض جديد</a>
             <a class="nav-link" id="dNavRecords" onclick="switchPage('records')"><i class="fa-solid fa-address-book"></i> سجل المرضى</a>
             <a class="nav-link" id="dNavAccounts" onclick="switchPage('accounts')"><i class="fa-solid fa-wallet"></i> الحسابات واليومية</a>
             <a class="nav-link" id="dNavDebts" onclick="switchPage('debts')"><i class="fa-solid fa-hand-holding-dollar"></i> المديونيات</a>
@@ -230,7 +226,7 @@
     </div>
 
     <div class="mobile-nav">
-        <div class="mobile-nav-item" id="mNavHome" onclick="switchPage('home')"><i class="fa-solid fa-user-plus"></i>جديد</div>
+        <div class="mobile-nav-item active" id="mNavHome" onclick="switchPage('home')"><i class="fa-solid fa-user-plus"></i>جديد</div>
         <div class="mobile-nav-item" id="mNavRecords" onclick="switchPage('records')"><i class="fa-solid fa-address-book"></i>السجل</div>
         <div class="mobile-nav-item" id="mNavAccounts" onclick="switchPage('accounts')"><i class="fa-solid fa-wallet"></i>اليومية</div>
         <div class="mobile-nav-item" id="mNavDebts" onclick="switchPage('debts')"><i class="fa-solid fa-hand-holding-dollar"></i>الديون</div>
@@ -247,9 +243,9 @@
             <button class="btn btn-sm btn-outline-danger border-0 fw-bold d-lg-none" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i></button>
         </div>
 
-        <div id="mainSystem" class="page-section">
+        <div id="mainSystem">
             
-            <div id="homeSection" class="sub-section">
+            <div id="homeSection">
                 <div class="card">
                     <h5 class="card-title"><i class="fa-solid fa-circle-plus text-primary me-2"></i> إضافة مريض جديد للمنظومة</h5>
                     <form id="patientForm" onsubmit="saveNewPatient(event)">
@@ -278,7 +274,7 @@
                 </div>
             </div>
 
-            <div id="recordsSection" class="sub-section">
+            <div id="recordsSection" style="display: none;">
                 <div class="card">
                     <h5 class="card-title"><i class="fa-solid fa-address-book text-primary me-2"></i> سجل ملفات وبيانات المرضى</h5>
                     
@@ -312,7 +308,7 @@
                 </div>
             </div>
 
-            <div id="accountsSection" class="sub-section">
+            <div id="accountsSection" style="display: none;">
                 <div class="card">
                     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 border-bottom pb-2 gap-2">
                         <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-wallet text-success me-2"></i> ميزانية الحسابات والنسبة الكلية (60%)</h5>
@@ -344,7 +340,7 @@
                 </div>
             </div>
 
-            <div id="debtsSection" class="sub-section">
+            <div id="debtsSection" style="display: none;">
                 <div class="card">
                     <h5 class="card-title text-danger"><i class="fa-solid fa-hand-holding-dollar me-2"></i> المديونيات وأقساط الحالات المعلقة</h5>
                     
@@ -367,7 +363,7 @@
                 </div>
             </div>
 
-            <div id="purchasesSection" class="sub-section">
+            <div id="purchasesSection" style="display: none;">
                 <div class="card">
                     <h5 class="card-title"><i class="fa-solid fa-cart-shopping text-warning me-2"></i> إدارة المصاريف والمشتروات اليومية</h5>
                     <form id="purchaseForm" onsubmit="savePurchase(event)" class="row g-3 mb-4 p-3 bg-light rounded-4">
@@ -405,57 +401,7 @@
 
         </div>
 
-        <div id="loginPage" class="page-section mt-4">
-            <div class="row justify-content-center">
-                <div class="col-md-5 col-lg-4">
-                    <div class="card text-center p-4 border-0 mt-5">
-                        <div class="mb-3">
-                            <img src="WhatsApp Image 2026-05-18 at 8.46.17 PM.jpeg" alt="لوجو عيادة زمزم" class="rounded-circle shadow" style="width: 90px; height: 90px; object-fit: cover; border: 3px solid var(--blue-accent);">
-                        </div>
-                        <h4 class="fw-bold mb-1">بوابة عيادة زمزم</h4>
-                        <p class="text-muted small mb-4">نظام التحكم المالي والطبي الذكي</p>
-                        
-                        <form id="loginForm" onsubmit="handleLogin(event)">
-                            <div class="mb-3 text-start">
-                                <label class="form-label small fw-bold">اسم المستخدم</label>
-                                <input type="text" class="form-control" id="username" placeholder="admin" required>
-                            </div>
-                            <div class="mb-4 text-start">
-                                <label class="form-label small fw-bold">كلمة المرور</label>
-                                <input type="password" class="form-control" id="password" placeholder="••••••••" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100 py-3 fw-bold rounded-3 mb-3">تسجيل الدخول</button>
-                        </form>
-                        <button class="btn btn-link btn-sm text-decoration-none fw-bold text-secondary" onclick="openAuthView('signup')">إنشاء حساب عيادة جديد <i class="fa-solid fa-user-plus ms-1"></i></button>
-                    </div>
-                </div>
-            </div>
         </div>
-
-        <div id="signupPage" class="page-section mt-4">
-            <div class="row justify-content-center">
-                <div class="col-md-5 col-lg-4">
-                    <div class="card p-4 border-0 mt-5">
-                        <h4 class="fw-bold text-center mb-1">حساب عيادة جديد</h4>
-                        <p class="text-muted small text-center mb-4">قم بتهيئة بيانات مالك النظام الأساسي</p>
-                        <form id="signupForm" onsubmit="handleSignup(event)">
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">اسم المستخدم الجديد</label>
-                                <input type="text" class="form-control" id="signupUsername" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label small fw-bold">كلمة المرور</label>
-                                <input type="password" class="form-control" id="signupPassword" required>
-                            </div>
-                            <button type="submit" class="btn btn-success w-100 py-3 fw-bold rounded-3 mb-3">تسجيل وتفعيل الحساب</button>
-                        </form>
-                        <button class="btn btn-link btn-sm text-decoration-none fw-bold text-secondary text-center w-100" onclick="openAuthView('login')">العودة لشاشة الدخول</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
 
     <div class="modal fade" id="editPatientModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -544,10 +490,6 @@
     <script>
         let patients = JSON.parse(localStorage.getItem('zamzam_patients')) || [];
         let purchases = JSON.parse(localStorage.getItem('zamzam_purchases')) || [];
-        let systemAccounts = JSON.parse(localStorage.getItem('zamzam_sys_accounts')) || [];
-        
-        // تعديل أمان: لو لسه مفيش يوزر، المتصفح بيعتبره admin افتراضياً لمنع الصفحة البيضاء
-        let currentAuthUser = localStorage.getItem('zamzam_logged_user') || "admin";
 
         let updateModal, payModal, editPatientModal;
         let quickPayPatientId = null;
@@ -559,75 +501,25 @@
             payModal = new bootstrap.Modal(document.getElementById('payInstallmentModal'));
             editPatientModal = new bootstrap.Modal(document.getElementById('editPatientModal'));
             
-            // تهيئة الفلاتر بالتواريخ المباشرة
+            // ضبط فلاتر التواريخ فوراً للعمل
             if(document.getElementById('recordDateFilter')) document.getElementById('recordDateFilter').value = todayStr;
             if(document.getElementById('accountDateFilter')) document.getElementById('accountDateFilter').value = todayStr;
             if(document.getElementById('purchaseDateFilter')) document.getElementById('purchaseDateFilter').value = todayStr;
             if(document.getElementById('pDate')) document.getElementById('pDate').value = todayStr;
             if(document.getElementById('purDate')) document.getElementById('purDate').value = todayStr;
             
-            // تشغيل فوري للصفحة الأساسية
-            checkUserSession();
+            // فتح صفحة الهوم كخيار افتراضي مضمون بدون شاشة بيضاء
+            switchPage(localStorage.getItem('zamzam_active_tab') || 'home');
         });
 
-        function checkUserSession() {
-            if (currentAuthUser) {
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('signupPage').style.display = 'none';
-                document.getElementById('systemHeader').style.display = 'flex';
-                document.getElementById('mainSystem').style.display = 'block';
-                switchPage(localStorage.getItem('zamzam_active_tab') || 'home');
-            } else {
-                openAuthView('login');
-            }
-        }
-
-        window.openAuthView = function(view) {
-            document.getElementById('loginPage').style.display = view === 'login' ? 'block' : 'none';
-            document.getElementById('signupPage').style.display = view === 'signup' ? 'block' : 'none';
-            document.getElementById('systemHeader').style.display = 'none';
-            document.getElementById('mainSystem').style.display = 'none';
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            let u = document.getElementById('username').value.trim();
-            let p = document.getElementById('password').value;
-            
-            let matched = systemAccounts.find(a => a.username === u && a.password === p);
-            
-            if(u === 'admin' || matched) {
-                currentAuthUser = u;
-                localStorage.setItem('zamzam_logged_user', u);
-                checkUserSession();
-            } else {
-                alert("بيانات الدخول خاطئة!");
-            }
-        }
-
-        function handleSignup(e) {
-            e.preventDefault();
-            let u = document.getElementById('signupUsername').value.trim();
-            let p = document.getElementById('signupPassword').value;
-            
-            if(systemAccounts.some(a => a.username === u)) {
-                alert("اسم المستخدم مسجل بالفعل!"); return;
-            }
-            
-            systemAccounts.push({username: u, password: p});
-            localStorage.setItem('zamzam_sys_accounts', JSON.stringify(systemAccounts));
-            alert("تم إنشاء حسابك بنجاح!");
-            openAuthView('login');
-        }
-
-        function logout() {
-            localStorage.removeItem('zamzam_logged_user');
-            currentAuthUser = null;
-            openAuthView('login');
-        }
-
         function switchPage(page) {
-            document.querySelectorAll('.sub-section').forEach(s => s.style.display = 'none');
+            // إخفاء كافة الأقسام بشكل فوري ومباشر
+            document.getElementById('homeSection').style.display = 'none';
+            document.getElementById('recordsSection').style.display = 'none';
+            document.getElementById('accountsSection').style.display = 'none';
+            document.getElementById('debtsSection').style.display = 'none';
+            document.getElementById('purchasesSection').style.display = 'none';
+            
             document.querySelectorAll('.sidebar .nav-link').forEach(l => l.classList.remove('active'));
             document.querySelectorAll('.mobile-nav-item').forEach(m => m.classList.remove('active'));
             
